@@ -18,22 +18,22 @@ const useStyles = makeStyles((theme) => ({
         backgroundColor: '#f9f9f9',
         marginTop: '100px',
     },
-    productContainer: {
-        padding: theme.spacing(2),
-        backgroundColor: '#fff',
-        borderRadius: theme.spacing(1),
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'row',
-        gap: theme.spacing(3),
-    },
+    // productContainer: {
+    //     padding: theme.spacing(2),
+    //     backgroundColor: '#fff',
+    //     borderRadius: theme.spacing(1),
+    //     boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
+    //     display: 'flex',
+    //     flexDirection: 'row',
+    //     gap: theme.spacing(3),
+    // },
     thumbnail: {
-        flexBasis: '40%',
+        // flexBasis: '40%',
         borderRadius: theme.spacing(1),
         overflow: 'hidden',
     },
     info: {
-        flexBasis: '55%',
+        // flexBasis: '55%',
         display: 'flex',
         flexDirection: 'column',
         justifyContent: 'space-between',
@@ -107,12 +107,12 @@ function DetailPage() {
                         spacing={3}
                         className={classes.productContainer}
                     >
-                        <Grid
+                        {/* <Grid
                             item
                             className={classes.thumbnail}
                         >
                             <ProductThumnail product={product} />
-                        </Grid>
+                        </Grid> */}
                         <Grid
                             item
                             className={classes.info}
