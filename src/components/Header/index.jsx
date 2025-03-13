@@ -95,7 +95,8 @@ function Header(props) {
                         width:'60px',
                         height:'50px',
                         cursor: 'pointer',
-                        transition: 'all 0.3s ease-in-out'
+                        transition: 'all 0.3s ease-in-out',
+                        filter: 'invert(1)',
                     }}
                 />
             </a>
@@ -157,6 +158,7 @@ function Header(props) {
                                 <IconButton
                                     size='large'
                                     color='inherit'
+                                    style={{ color: 'white' }}
                                     onClick={handleAdminClick}
                                 >
                                     <box-icon type='solid' name='lock-alt'></box-icon>
@@ -164,6 +166,7 @@ function Header(props) {
                                 <IconButton
                                     color='inherit'
                                     onClick={handleUserClick}
+                                    style={{ color: 'white' }}
                                 >
                                     <AccountCircle />
                                 </IconButton>
@@ -173,24 +176,27 @@ function Header(props) {
                                 <IconButton
                                     size='large'
                                     color='inherit'
+                                    style={{ color: 'white' }}
                                     onClick={handleSearchClick}
                                 >
                                     <Search />
                                 </IconButton>
                                 <IconButton
                                     size='large'
-                                    color='inherit'
+                                    color='#000000'
+                                    style={{ color: 'white' }}
                                     onClick={handleCartClick}
                                 >
                                     <Badge
                                         badgeContent={cartItemsCount}
                                         color='error'
                                     >
-                                        <ShoppingCart style={{ color: 'black' }} />
+                                        <ShoppingCart style={{ color: 'white' }} />
                                     </Badge>
                                 </IconButton>
                                 <IconButton
                                     color='inherit'
+                                    style={{ color: 'white' }}
                                     onClick={handleUserClick}
                                 >
                                     <AccountCircle />
@@ -207,7 +213,8 @@ function Header(props) {
                             <box-icon
                                 type='logo'
                                 name='facebook-circle'
-                                color='#000'
+                                color='white'
+                                // style={{ color: 'white' }}
                             ></box-icon>
                         </a>
                         <a
@@ -217,7 +224,8 @@ function Header(props) {
                             <box-icon
                                 type='logo'
                                 name='instagram-alt'
-                                color='#000'
+                                color='white'
+                                style={{ color: 'white' }}
                             ></box-icon>
                         </a>
                         <a
@@ -227,7 +235,8 @@ function Header(props) {
                             <box-icon
                                 type='solid'
                                 name='user-circle'
-                                color='#000'
+                                color='white'
+                                style={{ color: 'white' }}
                             ></box-icon>
                         </a>
                     </>

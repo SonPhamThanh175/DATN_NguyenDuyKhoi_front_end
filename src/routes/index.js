@@ -1,5 +1,6 @@
 import { LoginPage } from "../../src/pages/Auth/LoginPage/index";
 import { SocialRedirect } from "../pages/Auth/SocialMediaRedirect";
+import CartPages from "../pages/Cart";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
 import Product from "../pages/Product";
@@ -81,12 +82,12 @@ export const routes = [
         isShowHeader : true,
         isShowFooter : true,
     },
-    // { 
-    //     path:'/cart',
-    //     page : CartPages,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
+    { 
+        path:'/cart',
+        page : CartPages,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
     // { 
     //     path:'/orders',
     //     page : OrderPage,

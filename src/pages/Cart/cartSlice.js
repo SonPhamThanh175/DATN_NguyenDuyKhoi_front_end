@@ -1,58 +1,114 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 // Tạo 1 Slice = hàm createSlice() của Redux
+// const cartSlice = createSlice({
+//     // Truyền vào cái name , initialState (Có thể là number hoặc string , object ,...)
+//     name: 'cart',
+//     initialState: {
+//         showMiniCart: false,
+//         cartItems:JSON.parse(localStorage.getItem("cart")) || [],
+//     } ,
+
+//     // Reducer là 1 object -> Mỗi key là 1 trường hợp ( là 1 hàm  )
+//     reducers: {
+//         showMiniCart(state){
+//             state.showMiniCart = true;
+//         },
+
+//         hideMiniCart(state){
+//             state.showMiniCart = false;     
+//         },
+
+//         addToCart(state,action){
+//             // newItems = { id , product , quantity}
+//             const newItem = action.payload
+//             const index = state.cartItems.findIndex(x => x.id === newItem.id)
+//             if ( index >= 0 ) {
+//                 // increase quantity
+//                 state.cartItems[index].quantity += newItem.quantity
+//             }else{
+//                 //add to cart
+//                 state.cartItems.push(newItem);
+//             }
+//             localStorage.setItem("cart", JSON.stringify(state.cartItems));
+//         },
+
+//         setQuantity(state,action){
+//             const {id , quantity} = action.payload
+//             //check if product is avaliable in cart 
+//             const index = state.cartItems.findIndex(x => x.id === id)
+//             if ( index >= 0 ) {
+//                 state.cartItems[index].quantity = quantity;
+//             }
+//         },
+
+//         // removeFromCart(state,action){
+//         //     const idNeedRemove = action.payload;
+//         //     state.cartItems = state.cartItems.filter(x => x.id !== idNeedRemove)
+//         //     localStorage.removeItem(StorageKeys.CART);
+//         // },
+//         removeFromCart(state, action) {
+//             const idNeedRemove = action.payload;
+//             state.cartItems = state.cartItems.filter(x => x.id !== idNeedRemove);
+//             localStorage.setItem("cart", JSON.stringify(state.cartItems));
+//         },
+        
+//     },
+// });
 const cartSlice = createSlice({
-    // Truyền vào cái name , initialState (Có thể là number hoặc string , object ,...)
     name: 'cart',
     initialState: {
         showMiniCart: false,
-        cartItems:JSON.parse(localStorage.getItem("cart")) || [],
-    } ,
+        cartItems: JSON.parse(localStorage.getItem("cart")) || [],
+    },
 
-    // Reducer là 1 object -> Mỗi key là 1 trường hợp ( là 1 hàm  )
     reducers: {
-        showMiniCart(state){
+        showMiniCart(state) {
             state.showMiniCart = true;
         },
 
-        hideMiniCart(state){
-            state.showMiniCart = false;     
+        hideMiniCart(state) {
+            state.showMiniCart = false;
         },
 
-        addToCart(state,action){
-            // newItems = { id , product , quantity}
-            const newItem = action.payload
-            const index = state.cartItems.findIndex(x => x.id === newItem.id)
-            if ( index >= 0 ) {
-                // increase quantity
-                state.cartItems[index].quantity += newItem.quantity
-            }else{
-                //add to cart
+        addToCart(state, action) {
+            const newItem = action.payload;
+            const index = state.cartItems.findIndex(
+                (x) =>
+                    x.productId === newItem.productId &&
+                    x.size === newItem.size &&
+                    x.color === newItem.color
+            );
+
+            if (index >= 0) {
+                // Tăng số lượng nếu sản phẩm đã tồn tại trong giỏ hàng
+                state.cartItems[index].quantity += newItem.quantity;
+            } else {
+                // Thêm sản phẩm mới vào giỏ hàng
                 state.cartItems.push(newItem);
             }
             localStorage.setItem("cart", JSON.stringify(state.cartItems));
         },
 
-        setQuantity(state,action){
-            const {id , quantity} = action.payload
-            //check if product is avaliable in cart 
-            const index = state.cartItems.findIndex(x => x.id === id)
-            if ( index >= 0 ) {
+        setQuantity(state, action) {
+            const { productId, size, color, quantity } = action.payload;
+            const index = state.cartItems.findIndex(
+                (x) => x.productId === productId && x.size === size && x.color === color
+            );
+
+            if (index >= 0) {
                 state.cartItems[index].quantity = quantity;
             }
-        },
-
-        // removeFromCart(state,action){
-        //     const idNeedRemove = action.payload;
-        //     state.cartItems = state.cartItems.filter(x => x.id !== idNeedRemove)
-        //     localStorage.removeItem(StorageKeys.CART);
-        // },
-        removeFromCart(state, action) {
-            const idNeedRemove = action.payload;
-            state.cartItems = state.cartItems.filter(x => x.id !== idNeedRemove);
             localStorage.setItem("cart", JSON.stringify(state.cartItems));
         },
-        
+
+        removeFromCart(state, action) {
+            const { productId, size, color } = action.payload;
+            state.cartItems = state.cartItems.filter(
+                (x) =>  x.size !== size || x.color !== color
+            );
+            localStorage.setItem("cart", JSON.stringify(state.cartItems));
+        },
     },
 });
 // Redux tự định nghĩa actions và reducer 

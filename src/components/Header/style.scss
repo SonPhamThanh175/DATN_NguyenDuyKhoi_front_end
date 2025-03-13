@@ -13,7 +13,8 @@
     width: 100%;
     padding: 30px 8%;
     // background: #eaeaea;
-    background: white;
+    // background: white;
+    background: black;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -23,7 +24,8 @@
 
     &__logo {
         font-size: 25px;
-        color: #222;
+        // color: #222;
+        color: white;
         text-decoration: none;
         font-weight: 600;
         opacity: 0;
@@ -37,7 +39,8 @@
         & a {
             display: inline-block;
             font-size: 18px;
-            color: #222;
+            // color: #222;
+            color: white;
             text-decoration: none;
             font-weight: 100;
             margin: 0 10px;
@@ -48,7 +51,8 @@
             // font-family: monospace;
             &:hover,
             &.active {
-                color: #000; 
+                // color: #000; 
+                color: white; 
                 font-size: 20px;
                 font-weight: 600;
 
@@ -80,12 +84,14 @@
             animation-delay: calc(0.2s * var(--i));
 
             &:hover{
-                border-color: #000;
+                // border-color: #000;
+                border-color: white;
             }
 
             &  box-icon {
                 font-size: 24px;
                 // color: #eaeaea;
+                // color: white;
                 color: white;
                 transform: rotate(-45deg);
 
