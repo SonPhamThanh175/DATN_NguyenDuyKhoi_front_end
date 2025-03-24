@@ -3,12 +3,15 @@ import { SocialRedirect } from "../pages/Auth/SocialMediaRedirect";
 import CartPages from "../pages/Cart";
 import HomePage from "../pages/HomePage";
 import NotFound from "../pages/NotFound";
+import OrderPage from "../pages/Order";
 import Product from "../pages/Product";
 import ProductAdditional from "../pages/Product/components/ProductAdditional";
 import ProductDescription from "../pages/Product/components/ProductDescription";
 import ProductReviews from "../pages/Product/components/ProductReviews";
 // import SuggestedProducts from "../pages/Product/components/SuggestedProducts ";
 import DetailPage from "../pages/Product/pages/DetailPage";
+import SuccessPage from "../pages/Order/components/SuccessPage";
+import OrderHistory from "../pages/Order/components/OrderHistory";  
 
 export const routes = [
     { 
@@ -88,18 +91,18 @@ export const routes = [
         isShowHeader : true,
         isShowFooter : true,
     },
-    // { 
-    //     path:'/orders',
-    //     page : OrderPage,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
-    // { 
-    //     path:'/order-history',
-    //     page : OrderHistory,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
+    { 
+        path:'/orders',
+        page : OrderPage,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
+    { 
+        path:'/order-history',
+        page : OrderHistory,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
     // { 
     //     path:'/account',
     //     page : AccountInfo,
@@ -130,13 +133,13 @@ export const routes = [
     //     isShowHeader : true,
     //     isShowFooter : true,
     // },
-    // { 
-    //     path:'/success-page',
-    //     page : SuccessPage,
-    //     exact: true,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
+    { 
+        path:'/success-page',
+        page : SuccessPage,
+        exact: true,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
     // { 
     //     path:'/test',
     //     page : SuggestedProducts,
