@@ -12,6 +12,16 @@ import ProductReviews from "../pages/Product/components/ProductReviews";
 import DetailPage from "../pages/Product/pages/DetailPage";
 import SuccessPage from "../pages/Order/components/SuccessPage";
 import OrderHistory from "../pages/Order/components/OrderHistory";  
+import AccountInfo from "../pages/AccountInfo";
+import Account from "../pages/AccountInfo/components/Account";
+import AccountAdditional from "../pages/AccountInfo/components/AccountAdditional";
+import AdminPage from "../admin/pages";
+import Dashboard from "../admin/pages/Dashboard";
+import MenuManagement from "../admin/pages/Menu/MenuManagement";
+import OrderManagement from "../admin/pages/Order/OrderManagement";
+import ProductManagement from "../admin/pages/Product/ProductManagement";
+import UserManagement from "../admin/pages/User/UserManagement";
+
 
 export const routes = [
     { 
@@ -21,29 +31,33 @@ export const routes = [
         isShowHeader : true,
         isShowFooter : false,
     },
-    // { 
-    //     path:'/admin',
-    //     page : AdminPage,
-    //     isPrivate: true,
-    //     children: [
-    //         {
-    //           path: 'dashboard',
-    //           page: Dashboard,
-    //         },
-    //         {
-    //           path: 'products',
-    //           page: ProductManagement,
-    //         },
-    //         {
-    //           path: 'menu',
-    //           page: MenuManagement,
-    //         },
-    //         {
-    //           path: 'orders',
-    //           page: OrderManagement,
-    //         },
-    //       ],
-    // },
+    { 
+        path:'/admin',
+        page : AdminPage,
+        isPrivate: true,
+        children: [
+            {
+              path: 'dashboard',
+              page: Dashboard,
+            },
+            {
+              path: 'products',
+              page: ProductManagement,
+            },
+            {
+              path: 'menu',
+              page: MenuManagement,
+            },
+            {
+              path: 'orders',
+              page: OrderManagement,
+            },
+            {
+              path: 'users',
+              page: UserManagement,
+            },
+          ],
+    },
     { 
         path:'/login',
         exact: true,
@@ -103,22 +117,22 @@ export const routes = [
         isShowHeader : true,
         isShowFooter : true,
     },
-    // { 
-    //     path:'/account',
-    //     page : AccountInfo,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    //     children: [
-    //         {
-    //           path: '',
-    //           page: Account,
-    //         },
-    //         {
-    //           path: 'additional',
-    //           page: AccountAdditional,
-    //         },
-    //       ],
-    // },
+    { 
+        path:'/account',
+        page : AccountInfo,
+        isShowHeader : true,
+        isShowFooter : true,
+        children: [
+            {
+              path: '',
+              page: Account,
+            },
+            {
+              path: 'additional',
+              page: AccountAdditional,
+            },
+          ],
+    },
     // { 
     //     path:'/about',
     //     page : AboutCompany,

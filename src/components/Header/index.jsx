@@ -155,14 +155,10 @@ function Header(props) {
                     <Box>
                         {isAdmin ? (
                             <>
-                                <IconButton
-                                    size='large'
-                                    color='inherit'
-                                    style={{ color: 'white' }}
-                                    onClick={handleAdminClick}
-                                >
-                                    <box-icon type='solid' name='lock-alt'></box-icon>
-                                </IconButton>
+                                <IconButton size="large" color="inherit" onClick={handleAdminClick}>
+    <box-icon type="solid" name="lock-alt" color="white"></box-icon>
+</IconButton>
+
                                 <IconButton
                                     color='inherit'
                                     onClick={handleUserClick}
