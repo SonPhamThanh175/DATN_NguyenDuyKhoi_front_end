@@ -54,7 +54,7 @@ export const LoginPage = () => {
             
             enqueueSnackbar('Login successfully !!!', { variant: 'success' });
     
-            if (user.role === 'admin') {
+            if (user.role === 'admin' || user.role === 'saler') {
                 navigate('/admin');
             } else {
                 navigate('/products');

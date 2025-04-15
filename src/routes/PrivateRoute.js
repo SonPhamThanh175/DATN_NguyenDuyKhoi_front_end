@@ -10,14 +10,11 @@ const PrivateRoute = ({ user, children }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!user || user.role !== 'admin') {
+    const isAuthorized = user && (user.role === 'admin' || user.role === 'saler');
+    if (!isAuthorized) {
       Modal.confirm({
         title: 'Bạn không có quyền truy cập trang này',
-        content: (
-          <div>
-            <p>Bạn không có quyền truy cập trang này.</p>
-          </div>
-        ),
+        content: <p>Bạn không có quyền truy cập trang này.</p>,
         okText: 'Tiếp tục',
         okButtonProps: { className: 'custom-ok-button' },
         cancelButtonProps: { style: { display: 'none' } },
@@ -26,9 +23,10 @@ const PrivateRoute = ({ user, children }) => {
         },
       });
     }
-  }, [user, navigate, dispatch]);
+  }, [user, navigate]);
 
-  return user && user.role === 'admin' ? children : null;
+  const isAuthorized = user && (user.role === 'admin' || user.role === 'saler');
+  return isAuthorized ? children : null;
 };
 
 export default PrivateRoute;

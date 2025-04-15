@@ -21,6 +21,7 @@ import MenuManagement from "../admin/pages/Menu/MenuManagement";
 import OrderManagement from "../admin/pages/Order/OrderManagement";
 import ProductManagement from "../admin/pages/Product/ProductManagement";
 import UserManagement from "../admin/pages/User/UserManagement";
+import RevenueManagement from "../admin/pages/RevenueManagement";
 
 
 export const routes = [
@@ -55,6 +56,10 @@ export const routes = [
             {
               path: 'users',
               page: UserManagement,
+            },
+            {
+              path: 'statistics/revenue',
+              page: RevenueManagement,
             },
           ],
     },

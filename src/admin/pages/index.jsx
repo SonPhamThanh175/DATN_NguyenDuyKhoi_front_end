@@ -89,6 +89,16 @@ const AdminPage = () => {
                     >
                         <Link to='/admin/orders'>Quản lý đơn hàng</Link>
                     </Menu.Item>
+                    <Menu.Item
+                        key='/admin/statistics/revenue'
+                        style={
+                            selectedKey === '/admin/statistics/revenue'
+                                ? { background: 'black', color: 'white' }
+                                : {}
+                        }
+                    >
+                        <Link to='/admin/statistics/revenue'>Quản lý doanh thu</Link>
+                    </Menu.Item>
                     {/* Thêm các item khác nếu cần */}
                     {role === 'admin' && (
                         <Menu.Item

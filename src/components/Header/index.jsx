@@ -28,7 +28,7 @@ function Header(props) {
         if (userId) {
             setIsLoggedIn(true);
             setUserId(userId);
-            if (userRole === 'admin') {
+            if (userRole === 'admin' || userRole === 'saler') {
                 setIsAdmin(true);
             }
         }
