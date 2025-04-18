@@ -136,7 +136,9 @@ const OrderHistory = () => {
                                 </Col>
                             </Row>
                             <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(order.orderDate), 'dd/MM/yyyy', { locale: vi })}</p>
+                      
                             <p style={{ fontWeight: 'bold' }}>Trạng thái vận chuyển: {renderShippingStatus(order.shippingStatus)}</p>
+                        
                             <p style={{ fontWeight: 'bold' }}>Tổng giá trị: {formatPrice(order.totalAmount)}</p>
                         </Card>
                     </List.Item>
@@ -156,7 +158,11 @@ const OrderHistory = () => {
                     >
                         <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(selectedOrder.orderDate), 'dd/MM/yyyy', { locale: vi })}</p>
                         <p style={{ fontWeight: 'bold' }}>Trạng thái: {renderStatus(selectedOrder.status)}</p>
+                       
+                        <div style={{display:'flex', justifyContent:'space-between'}}>
                         <p style={{ fontWeight: 'bold' }}>Trạng thái vận chuyển: {renderShippingStatus(selectedOrder.shippingStatus)}</p>
+                        <a href='http://localhost:3000/account/additional'>(Xem chi tiết)</a>
+                        </div>
                         <p style={{ fontWeight: 'bold' }}>Trạng thái thanh toán: {renderPaymentStatus(selectedOrder.paymentStatus)}</p>
                         {/* <p style={{ fontWeight: 'bold' }}>Phương thức thanh toán: {renderPaymentMethod(selectedOrder.paymentMethod)}</p> */}
                         <p style={{ fontWeight: 'bold' }}>Tổng giá trị: {formatPrice(selectedOrder.totalAmount)}</p>
