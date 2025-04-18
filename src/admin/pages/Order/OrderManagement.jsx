@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from 'react';
 import { Table, Tag, Space, Modal, Select, Button } from 'antd';
 import axios from 'axios';
@@ -9,53 +8,59 @@ const OrderManagement = () => {
   const [orders, setOrders] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedOrder, setSelectedOrder] = useState(null);
-  const [newShippingStatus, setNewShippingStatus] = useState('');  
+  const [newShippingStatus, setNewShippingStatus] = useState('');
   const accessToken = localStorage.getItem('access_token');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/api/orders')
-      .then(response => {
+    fetchOrders();
+  }, []);
+
+  const fetchOrders = () => {
+    axios
+      .get('http://localhost:5000/api/orders')
+      .then((response) => {
         setOrders(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('There was an error fetching the orders!', error);
       });
-  }, [orders]);
+  };
 
   const handleOpenModal = (order) => {
     setSelectedOrder(order);
+    setNewShippingStatus(order.shippingStatus); // Gán trạng thái hiện tại
     setIsModalVisible(true);
   };
 
   const handleOk = () => {
     if (selectedOrder) {
-      axios.put(
-        `http://localhost:5000/api/orders/${selectedOrder._id}/shipping-status`,
-        {
-          shippingStatus: newShippingStatus
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}` 
+      axios
+        .put(
+          `http://localhost:5000/api/orders/${selectedOrder._id}/shipping-status`,
+          {
+            shippingStatus: newShippingStatus,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
           }
-        }
-      )
-      .then(response => {
-        setOrders(orders.map(order => 
-          order._id === selectedOrder._id ? { ...order, shippingStatus: newShippingStatus } : order
-        ));
-        setIsModalVisible(false);
-        setSelectedOrder(null);
-        setNewShippingStatus('');
-      })
-      .catch(error => {
-        console.error('There was an error updating the shipping status!', error.message);
-        console.error('Error details:', error.config);
-      });
+        )
+        .then((response) => {
+          fetchOrders();
+          setIsModalVisible(false);
+          setSelectedOrder(null);
+          setNewShippingStatus('');
+        })
+        .catch((error) => {
+          console.error(
+            'There was an error updating the shipping status!',
+            error.message
+          );
+          console.error('Error details:', error.config);
+        });
     }
   };
-  
-  
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -114,37 +119,52 @@ const OrderManagement = () => {
       },
     },
     {
-      title: 'Đã thanh toán',
+      title: 'Phương thức thanh toán',
       dataIndex: 'paymentStatus',
       key: 'paymentStatus',
       render: (status) => {
-        let color = 'green';
-        if (status === 'pending') {
-          color = 'volcano';
-        }
+        let color = status === 'success' ? 'green' : 'volcano';
+        let label = status === 'success' ? 'Chuyển khoản' : 'Tiền mặt';
         return (
           <Tag color={color} key={status}>
-            {status.toUpperCase()}
+            {label}
           </Tag>
         );
       },
     },
+    
     {
       title: 'Trạng thái vận chuyển',
       dataIndex: 'shippingStatus',
       key: 'shippingStatus',
       render: (status) => {
         let color = 'blue';
-        if (status === 'Chờ xử lý') {
-          color = 'orange';
-        } else if (status === 'Đã giao hàng') {
-          color = 'green';
-        }else if (status === 'Đã hủy') {
-          color = 'red';
+        let label = '';
+
+        switch (status) {
+          case 'pending':
+            color = 'orange';
+            label = 'Chờ xử lý';
+            break;
+          case 'shipping':
+            color = 'blue';
+            label = 'Đang vận chuyển';
+            break;
+          case 'delivered':
+            color = 'green';
+            label = 'Đã giao';
+            break;
+          case 'cancelled':
+            color = 'red';
+            label = 'Đã hủy';
+            break;
+          default:
+            label = status;
         }
+
         return (
           <Tag color={color} key={status}>
-            {status.toUpperCase()}
+            {label}
           </Tag>
         );
       },
@@ -163,24 +183,27 @@ const OrderManagement = () => {
 
   return (
     <>
-      <Table columns={columns} dataSource={orders} rowKey="_id" scroll={{
-      x: 1300,
-    }} />
+      <Table
+        columns={columns}
+        dataSource={orders}
+        rowKey="_id"
+        scroll={{ x: 1300 }}
+      />
       <Modal
         title="Cập nhật trạng thái giao hàng"
-        visible={isModalVisible}
+        open={isModalVisible}
         onOk={handleOk}
         onCancel={handleCancel}
       >
         <Select
-          defaultValue={selectedOrder?.shippingStatus || 'pending'}
-          style={{ width: "100%" }}
+          value={newShippingStatus}
+          style={{ width: '100%' }}
           onChange={setNewShippingStatus}
         >
-          <Option value="Chờ xử lý">Chờ xử lý</Option>
-          <Option value="Đang vận chuyển">Đang vận chuyển</Option>
-          <Option value="đã giao hàng">Đã giao</Option>
-          <Option value="Đã hủy">Đã hủy</Option>
+          <Option value="pending">Chờ xử lý</Option>
+          <Option value="shipping">Đang vận chuyển</Option>
+          <Option value="delivered">Đã giao</Option>
+          <Option value="cancelled">Đã hủy</Option>
         </Select>
       </Modal>
     </>
@@ -188,4 +211,3 @@ const OrderManagement = () => {
 };
 
 export default OrderManagement;
-

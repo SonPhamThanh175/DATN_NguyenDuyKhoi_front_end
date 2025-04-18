@@ -89,6 +89,7 @@ import Banner2 from '../../../components/Banner2';
 import axios from 'axios';
 import { Button } from 'antd';
 import SloganSimple from '../../../components/SloganSimple';
+import MembershipBanner from '../../../components/MembershipBanner';
 
 function ProductViewAll(props) {
     const [allProducts, setAllProducts] = useState([]);
@@ -150,6 +151,8 @@ function ProductViewAll(props) {
             <div style={{ padding: '0px 540px 50px 140px' }}>
                 <SloganSimple />
             </div>
+            <MembershipBanner />
+            
         </div>
     );
 }

@@ -123,7 +123,7 @@ function Header(props) {
                 >
                     NỮ
                 </a>
-                <a
+                {/* <a
                     style={{ '--i': 4 }}
                     href='/about'
                 >
@@ -140,10 +140,10 @@ function Header(props) {
                     href='/blog'
                 >
                     HÀNG MỚI VỀ
-                </a>
+                </a> */}
                 <a
                     style={{ '--i': 1 }}
-                    href='/products'
+                    href='/products/view-all'
                     className='active'
                 >
                     OUTLET

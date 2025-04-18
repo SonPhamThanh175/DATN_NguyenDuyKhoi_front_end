@@ -51,12 +51,12 @@ const UserManagement = () => {
 
     const columns = [
         {
-            title: 'Tên user',
+            title: 'Tài Khoản',
             dataIndex: 'username',
             key: 'name',
         },
         {
-            title: 'Email',
+            title: 'Tên Người Dùng',
             dataIndex: 'displayName',
             key: 'email',
         },

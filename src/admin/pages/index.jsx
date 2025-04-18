@@ -49,7 +49,7 @@ const AdminPage = () => {
                     selectedKeys={[selectedKey]}
                     onClick={({ key }) => setSelectedKey(key)}
                 >
-                    <Menu.Item
+                    {/* <Menu.Item
                         key='/admin/dashboard'
                         style={
                             selectedKey === '/admin/dashboard'
@@ -58,6 +58,16 @@ const AdminPage = () => {
                         }
                     >
                         <Link to='/admin/dashboard'>Doanh thu bán hàng</Link>
+                    </Menu.Item> */}
+                    <Menu.Item
+                        key='/admin/statistics/revenue'
+                        style={
+                            selectedKey === '/admin/statistics/revenue'
+                                ? { background: 'black', color: 'white' }
+                                : {}
+                        }
+                    >
+                        <Link to='/admin/statistics/revenue'>Quản lý doanh thu</Link>
                     </Menu.Item>
                     <Menu.Item
                         key='/admin/products'
@@ -89,16 +99,7 @@ const AdminPage = () => {
                     >
                         <Link to='/admin/orders'>Quản lý đơn hàng</Link>
                     </Menu.Item>
-                    <Menu.Item
-                        key='/admin/statistics/revenue'
-                        style={
-                            selectedKey === '/admin/statistics/revenue'
-                                ? { background: 'black', color: 'white' }
-                                : {}
-                        }
-                    >
-                        <Link to='/admin/statistics/revenue'>Quản lý doanh thu</Link>
-                    </Menu.Item>
+
                     {/* Thêm các item khác nếu cần */}
                     {role === 'admin' && (
                         <Menu.Item
@@ -157,7 +158,7 @@ const AdminPage = () => {
                 <Content style={{ margin: '0 16px', padding: 24, minHeight: 280 }}>
                     <Outlet />
                 </Content>
-                <Footer style={{ textAlign: 'center' }}>Admin  ©2024</Footer>
+                <Footer style={{ textAlign: 'center' }}>Admin ©2024</Footer>
             </Layout>
             <MaterialMenu
                 anchorEl={anchorEl}

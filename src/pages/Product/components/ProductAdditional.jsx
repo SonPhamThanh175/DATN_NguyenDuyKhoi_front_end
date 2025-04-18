@@ -34,14 +34,11 @@ function ProductAdditional(props) {
   ];
 
   const dataSource = [
-    { key: 'Kích thước mặt', value: data.dialSize },
-    { key: 'Màu mặt', value: data.dialColor },
-    { key: 'Mặt kính', value: data.glassMaterial },
-    { key: 'Loại máy', value: data.movementType },
-    { key: 'Chất liệu dây', value: data.strapMaterial },
-    { key: 'Kích cỡ dây', value: data.strapSize },
-    { key: 'Độ dày', value: data.thickness },
-    { key: 'Chống nước', value: data.waterResistance },
+    { key: 'Size', value: data.size },
+    { key: 'Màu ', value: data.Color },
+    { key: 'Kiểu dáng', value: "Origin" },
+    // { key: 'Độ dày', value: data.thickness },
+    // { key: 'Chống nước', value: data.waterResistance },
   ];
 
   return (

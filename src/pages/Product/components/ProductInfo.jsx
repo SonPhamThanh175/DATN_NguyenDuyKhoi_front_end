@@ -168,6 +168,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     gap: '8px',
+    minHeight: '33.89px',
   },
   sizeOption: {
     minWidth: '60px',

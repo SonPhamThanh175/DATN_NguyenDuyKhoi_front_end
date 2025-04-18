@@ -19,6 +19,7 @@ import HomePage from '../../HomePage';
 import AdidasSection from '../components/AdidasSection';
 import AdizeroArukuVideo from '../../../components/AdizeroArukuVideo';
 import SloganSimple from '../../../components/SloganSimple';
+import MembershipBanner from '../../../components/MembershipBanner';
 
 function ListPage(props) {
     const [productList, setProductList] = useState([]);
@@ -158,6 +159,7 @@ function ListPage(props) {
             <div style={{ padding: '0px 540px 50px 140px' }}>
                 <SloganSimple />
             </div>
+            <MembershipBanner />
             <AdidasSection />
         </div>
     );

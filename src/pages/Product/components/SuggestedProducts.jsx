@@ -56,7 +56,9 @@ const SuggestedProducts = ({ productId }) => {
 
   return (
     <div style={{ padding: '20px', position: 'relative' }}>
-      <text>Co the ban cung thich</text>
+      <div style={{ textAlign: 'center', marginBottom: '20px' }}>
+      <h1 style={{ fontFamily: 'monospace' , fontWeight:'bold'}}>Có thể bạn cũng thích</h1>
+      </div>
       <div
         ref={containerRef}
         className="suggested-products-container"
