@@ -49,8 +49,8 @@ const SuggestedProducts = ({ productId }) => {
   };
 
   const handleCardClick = (productId) => {
-    console.log(productId);
-    debugger
+    // console.log(productId);
+    // debugger
     navigate(`/products/${productId}`); 
   };
 
@@ -72,7 +72,7 @@ const SuggestedProducts = ({ productId }) => {
         {products.map((product) => {
           const thumbnailUrl = product?.images?.[0]
             ? product.images[0]
-            : 'https://via.placeholder.com/444';
+            : 'https://www.toprankindonesia.com/wp-content/uploads/2023/10/4.-Apa-itu-404-not-Found-scaled.jpg';
 
           return (
             <Card

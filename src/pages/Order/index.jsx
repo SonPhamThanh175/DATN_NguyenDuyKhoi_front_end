@@ -261,7 +261,7 @@ const OrderPage = () => {
                               src={
                                 item.urlImage
                                   ? `${item.urlImage}`
-                                  : "https://via.placeholder.com/444"
+                                  : "https://www.toprankindonesia.com/wp-content/uploads/2023/10/4.-Apa-itu-404-not-Found-scaled.jpg"
                               }
                               alt={item.name}
                               style={{
@@ -343,13 +343,66 @@ const OrderPage = () => {
                         {({ values, handleChange, handleSubmit }) => (
                           <Form onSubmit={handleSubmit}>
                             <FormControl component="fieldset">
-                              <RadioGroup
-                                name="paymentMethod"
-                                value={values.paymentMethod}
-                                onChange={handleChange}
-                              >
-                                {/* Payment options here */}
-                              </RadioGroup>
+                            <RadioGroup
+                                                        aria-label='payment-method'
+                                                        name='paymentMethod'
+                                                        value={values.paymentMethod}
+                                                        onChange={handleChange}
+                                                    >
+                                                        <FormControlLabel
+                                                            value='payment'
+                                                            control={<CustomRadio />}
+                                                            label={
+                                                                <Box
+                                                                    display='flex'
+                                                                    alignItems='center'
+                                                                >
+                                                                    <AccountBalanceIcon
+                                                                        sx={{ marginRight: 1 }}
+                                                                    />
+                                                                    <Box>
+                                                                        <Typography variant='body1'>
+                                                                            Chuyển khoản ngân hàng
+                                                                        </Typography>
+                                                                        <Typography variant='body2'>
+                                                                            Thực hiện thanh toán vào
+                                                                            ngay tài khoản ngân hàng
+                                                                            của chúng tôi. Vui lòng
+                                                                            sử dụng Mã đơn hàng của
+                                                                            bạn trong phần Nội dung
+                                                                            thanh toán. Đơn hàng sẽ
+                                                                            được giao sau khi tiền
+                                                                            đã chuyển.
+                                                                        </Typography>
+                                                                    </Box>
+                                                                </Box>
+                                                            }
+                                                        />
+                                                        <FormControlLabel
+                                                            value='cash'
+                                                            control={<CustomRadio />}
+                                                            label={
+                                                                <Box
+                                                                    display='flex'
+                                                                    alignItems='center'
+                                                                >
+                                                                    <LocalShippingIcon
+                                                                        sx={{ marginRight: 1 }}
+                                                                    />
+                                                                    <Box>
+                                                                        <Typography variant='body1'>
+                                                                            Trả tiền mặt khi nhận
+                                                                            hàng
+                                                                        </Typography>
+                                                                        <Typography variant='body2'>
+                                                                            Trả tiền mặt khi giao
+                                                                            hàng
+                                                                        </Typography>
+                                                                    </Box>
+                                                                </Box>
+                                                            }
+                                                        />
+                                                    </RadioGroup>
                             </FormControl>
                             <Box sx={{ display: "flex", justifyContent: "flex-end", mt: 2 }}>
                               <Button type="submit" className={classes.submitButton}>

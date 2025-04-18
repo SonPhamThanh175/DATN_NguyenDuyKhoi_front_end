@@ -302,8 +302,8 @@ function CartPages(props) {
     
 
     const payloadPay = { userId, products: updatedProducts, shippingInfo };
-    console.log("payloadPay", payloadPay);
-    debugger;
+    // console.log("payloadPay", payloadPay);
+    // debugger;
 
     if (!userId) {
       return;

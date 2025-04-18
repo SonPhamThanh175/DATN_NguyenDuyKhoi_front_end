@@ -50,7 +50,7 @@ const ProductManagement = () => {
             dataIndex: 'images',
             key: 'images',
             render: (images) => (
-                <img src={images[0] ? images[0] : 'https://via.placeholder.com/444'} alt="product" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                <img src={images[0] ? images[0] : 'https://www.toprankindonesia.com/wp-content/uploads/2023/10/4.-Apa-itu-404-not-Found-scaled.jpg'} alt="product" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
 
             ),
         },
