@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import cartsApi from '../../api/cartApi';
-import logo from '../../assets/logo/Adidas_Logo.svg'
+import logo from '../../assets/logo/Adidas_Logo.svg';
 import { logout } from '../../pages/Auth/userSlice';
 import SearchComponent from '../../pages/Product/components/Search';
 import '../Header/style.scss';
@@ -13,7 +13,7 @@ import { cartItemsCountSelector } from '../../pages/Cart/selectors';
 
 function Header(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const [isAdmin, setIsAdmin] = useState(false); 
+    const [isAdmin, setIsAdmin] = useState(false);
     const [isDropdownOpen, setIsDropdownOpen] = useState(false);
     const navigate = useNavigate();
     const [anchorEl, setAnchorEl] = useState(null);
@@ -24,11 +24,11 @@ function Header(props) {
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
-        const userRole = localStorage.getItem('role'); 
+        const userRole = localStorage.getItem('role');
         if (userId) {
             setIsLoggedIn(true);
             setUserId(userId);
-            if (userRole === 'admin' || userRole === 'saler') {
+            if (userRole === 'admin' || userRole === 'seller') {
                 setIsAdmin(true);
             }
         }
@@ -74,7 +74,7 @@ function Header(props) {
 
     const handleAdminClick = () => {
         navigate('/admin');
-    }
+    };
     const handleUserInfo = () => {
         navigate('/account');
     };
@@ -92,8 +92,8 @@ function Header(props) {
                     src={logo}
                     alt='logo'
                     style={{
-                        width:'60px',
-                        height:'50px',
+                        width: '60px',
+                        height: '50px',
                         cursor: 'pointer',
                         transition: 'all 0.3s ease-in-out',
                         filter: 'invert(1)',
@@ -107,21 +107,21 @@ function Header(props) {
                     href='/products'
                     className='active'
                 >
-                    NAM
+                    TRANG CHỦ
                 </a>
                 <a
                     style={{ '--i': 2 }}
                     href='http://localhost:3000/products?_limit=16&_page=1&_sort=asc&categoryId=66968d748675a1be4a653de2'
                     className='active'
                 >
-                    NỮ
+                    NAM
                 </a>
                 <a
                     style={{ '--i': 3 }}
                     href='http://localhost:3000/products?_limit=16&_page=1&_sort=asc&categoryId=66969dec8675a1be4a653e01'
                     className='active'
                 >
-                    TRẺ EM
+                    NỮ
                 </a>
                 <a
                     style={{ '--i': 4 }}
@@ -155,9 +155,17 @@ function Header(props) {
                     <Box>
                         {isAdmin ? (
                             <>
-                                <IconButton size="large" color="inherit" onClick={handleAdminClick}>
-    <box-icon type="solid" name="lock-alt" color="white"></box-icon>
-</IconButton>
+                                <IconButton
+                                    size='large'
+                                    color='inherit'
+                                    onClick={handleAdminClick}
+                                >
+                                    <box-icon
+                                        type='solid'
+                                        name='lock-alt'
+                                        color='white'
+                                    ></box-icon>
+                                </IconButton>
 
                                 <IconButton
                                     color='inherit'
@@ -204,7 +212,7 @@ function Header(props) {
                     <>
                         <a
                             style={{ '--i': 2 }}
-                            href='https://www.facebook.com/curnonwatch'
+                            href='https://www.facebook.com/adidasVN'
                         >
                             <box-icon
                                 type='logo'
@@ -215,7 +223,7 @@ function Header(props) {
                         </a>
                         <a
                             style={{ '--i': 3 }}
-                            href='https://www.instagram.com/curnonwatchcom/'
+                            href='https://www.instagram.com/adidas/'
                         >
                             <box-icon
                                 type='logo'
@@ -265,4 +273,4 @@ function Header(props) {
     );
 }
 
-export default Header 
+export default Header;

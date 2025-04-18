@@ -1,26 +1,24 @@
-import React, { useEffect, useState } from "react";
-import { Table, Button, Modal, message } from "antd";
-import axios from "axios";
+import React, { useEffect, useState } from 'react';
+import { Table, Button, Modal, message } from 'antd';
+import axios from 'axios';
 
 const UserManagement = () => {
     const [users, setUsers] = useState([]);
     const [loading, setLoading] = useState(false);
 
-    // Lấy token từ localStorage
-    const token = localStorage.getItem("access_token");
+    const token = localStorage.getItem('access_token');
 
-    // Hàm gọi API lấy danh sách người dùng
     const fetchUsers = async () => {
         setLoading(true);
         try {
-            const response = await axios.get("http://localhost:5000/api/users", {
+            const response = await axios.get('http://localhost:5000/api/users', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
             setUsers(response.data);
         } catch (error) {
-            message.error("Lỗi khi tải danh sách người dùng!");
+            message.error('Lỗi khi tải danh sách người dùng!');
         }
         setLoading(false);
     };
@@ -29,13 +27,12 @@ const UserManagement = () => {
         fetchUsers();
     }, []);
 
-    // Hàm xóa người dùng
     const handleDelete = async (userId) => {
         Modal.confirm({
-            title: "Xác nhận xóa",
-            content: "Bạn có chắc chắn muốn xóa người dùng này?",
-            okText: "Xóa",
-            cancelText: "Hủy",
+            title: 'Xác nhận xóa',
+            content: 'Bạn có chắc chắn muốn xóa người dùng này?',
+            okText: 'Xóa',
+            cancelText: 'Hủy',
             onOk: async () => {
                 try {
                     await axios.delete(`http://localhost:5000/api/users/${userId}`, {
@@ -43,37 +40,39 @@ const UserManagement = () => {
                             Authorization: `Bearer ${token}`,
                         },
                     });
-                    message.success("Xóa người dùng thành công!");
-                    fetchUsers(); // Tải lại danh sách sau khi xóa
+                    message.success('Xóa người dùng thành công!');
+                    fetchUsers();
                 } catch (error) {
-                    message.error("Lỗi khi xóa người dùng!");
+                    message.error('Lỗi khi xóa người dùng!');
                 }
             },
         });
     };
 
-    // Cấu hình cột của bảng
     const columns = [
         {
-            title: "Tên user",
-            dataIndex: "username",
-            key: "name",
+            title: 'Tên user',
+            dataIndex: 'username',
+            key: 'name',
         },
         {
-            title: "Email",
-            dataIndex: "displayName",
-            key: "email",
+            title: 'Email',
+            dataIndex: 'displayName',
+            key: 'email',
         },
         {
-            title: "Vai trò",
-            dataIndex: "role",
-            key: "role",
+            title: 'Vai trò',
+            dataIndex: 'role',
+            key: 'role',
         },
         {
-            title: "Hành động",
-            key: "actions",
+            title: 'Hành động',
+            key: 'actions',
             render: (_, record) => (
-                <Button danger onClick={() => handleDelete(record._id)}>
+                <Button
+                    danger
+                    onClick={() => handleDelete(record._id)}
+                >
                     Xóa
                 </Button>
             ),
@@ -84,9 +83,9 @@ const UserManagement = () => {
         <div>
             <h2>Quản lý người dùng</h2>
             <Table
-                dataSource={users}
+                dataSource={users.filter((user) => user.role !== 'admin')}
                 columns={columns}
-                rowKey="_id"
+                rowKey='_id'
                 loading={loading}
                 pagination={{ pageSize: 5 }}
             />

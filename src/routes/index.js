@@ -22,6 +22,7 @@ import OrderManagement from "../admin/pages/Order/OrderManagement";
 import ProductManagement from "../admin/pages/Product/ProductManagement";
 import UserManagement from "../admin/pages/User/UserManagement";
 import RevenueManagement from "../admin/pages/RevenueManagement";
+import ProductViewAll from "../pages/Product/components/ProductViewAll";
 
 
 export const routes = [
@@ -74,6 +75,13 @@ export const routes = [
         path:'/products',
         // exact: true,
         page : Product,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
+    { 
+        path:'/products/view-all',
+        // exact: true,
+        page : ProductViewAll,
         isShowHeader : true,
         isShowFooter : true,
     },

@@ -11,19 +11,21 @@ import ProductSort from '../components/ProductSort';
 import './style.scss';
 import slideImage from '../../../assets/images/Slide4.png';
 import Slideshow from '../../../components/Slideshow';
-import { Typography } from '@material-ui/core';
+import { Button, Typography } from '@material-ui/core';
 import ProductClear from '../components/ProductClear';
 import ProductType from '../components/Type/ProductType';
 import categoryApi from '../../../api/categoryApi';
 import HomePage from '../../HomePage';
 import AdidasSection from '../components/AdidasSection';
+import AdizeroArukuVideo from '../../../components/AdizeroArukuVideo';
+import SloganSimple from '../../../components/SloganSimple';
 
 function ListPage(props) {
     const [productList, setProductList] = useState([]);
     const [totalProducts, setTotalProducts] = useState(0);
     const navigate = useNavigate();
     const location = useLocation();
-    
+
     const queryParams = useMemo(() => {
         const params = queryString.parse(location.search);
         return {
@@ -52,7 +54,6 @@ function ListPage(props) {
             ...queryParams,
             _sort: newSortValue,
         };
-        
 
         navigate({
             pathname: location.pathname,
@@ -84,13 +85,16 @@ function ListPage(props) {
     };
     return (
         <div style={{ display: 'flex', flexDirection: 'column' }}>
+            <div>
+                <AdizeroArukuVideo />
+            </div>
             <div className='wrapper__product'>
-                {/* <div className='wrapper__product__filter'>
+                <div className='wrapper__product__filter'>
                     <ProductFilter
                         filters={queryParams}
                         onChange={handleFiltersChange}
                     />
-                </div> */}
+                </div>
                 <div className='wrapper__product__productList'>
                     <div className='wrapper__product__productList_type'>
                         {/* <ProductType 
@@ -105,11 +109,11 @@ function ListPage(props) {
                         {/* <FilterViewer
                             filters={queryParams}
                             onChange={handleFiltersChange}
-                        />
+                        /> */}
                         <ProductSort
                             currentSort={queryParams._sort}
                             onChange={handleSortChange}
-                        /> */}
+                        />
                     </div>
                     <div className='wrapper__product__productList__products'>
                         {productList && productList.length > 0 ? (
@@ -139,19 +143,22 @@ function ListPage(props) {
                     alt='Slide'
                     style={{ width: '100%', height: '100%' }}
                 />
-            </div>
+            </div>*/}
             <div className='wrapper__middle'>
                 <Typography
                     variant='h5'
-                    style={{   fontWeight: 'bold' }}
+                    style={{ fontWeight: 'bold' }}
                 >
-                    BE PART OF CURNON
+                    BE PART OF ADIDAS
                 </Typography>
-                <Typography style={{   fontWeight: 'bold' }}>
+                <Typography style={{ fontWeight: 'bold' }}>
                     Ai nói bạn không thể lựa chọn gia đình?
                 </Typography>
-            </div> */}
-            <AdidasSection/>
+            </div>
+            <div style={{ padding: '0px 540px 50px 140px' }}>
+                <SloganSimple />
+            </div>
+            <AdidasSection />
         </div>
     );
 }
