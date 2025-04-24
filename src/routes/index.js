@@ -23,6 +23,8 @@ import ProductManagement from "../admin/pages/Product/ProductManagement";
 import UserManagement from "../admin/pages/User/UserManagement";
 import RevenueManagement from "../admin/pages/RevenueManagement";
 import ProductViewAll from "../pages/Product/components/ProductViewAll";
+import BlogPage from "../pages/BlogPage";
+import AboutUs from "../pages/AboutUs";
 
 
 export const routes = [
@@ -146,20 +148,20 @@ export const routes = [
             },
           ],
     },
-    // { 
-    //     path:'/about',
-    //     page : AboutCompany,
-    //     exact: true,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
-    // { 
-    //     path:'/blog',
-    //     page : Blog,
-    //     exact: true,
-    //     isShowHeader : true,
-    //     isShowFooter : true,
-    // },
+    { 
+        path:'/about',
+        page : AboutUs,
+        exact: true,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
+    { 
+        path:'/blog',
+        page : BlogPage,
+        exact: true,
+        isShowHeader : true,
+        isShowFooter : true,
+    },
     { 
         path:'/success-page',
         page : SuccessPage,

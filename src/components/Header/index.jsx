@@ -128,19 +128,19 @@ function Header(props) {
                     href='/about'
                 >
                     THỂ THAO
-                </a>
+                </a>*/}
                 <a
                     style={{ '--i': 5 }}
-                    href='/blog'
+                    href='/about'
                 >
-                    CÁC NHÃN HIỆU
-                </a>
+                    About Us
+                </a> 
                 <a
                     style={{ '--i': 6 }}
                     href='/blog'
                 >
-                    HÀNG MỚI VỀ
-                </a> */}
+                    BLOG
+                </a>
                 <a
                     style={{ '--i': 1 }}
                     href='/products/view-all'

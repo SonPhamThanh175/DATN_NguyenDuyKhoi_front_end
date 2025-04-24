@@ -74,11 +74,11 @@ const ProductForm = ({ product, onClose, accessToken }) => {
         <InputNumber min={0} style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item name='dialColor' label='Link màu sản phẩm' rules={[{ required: true }]}>
+      <Form.Item name='Color' label='Link màu sản phẩm' rules={[{ required: true }]}>
         <Input style={{ width: '100%' }} />
       </Form.Item>
 
-      <Form.Item name='strapSize' label='Size' rules={[{ required: true }]}>
+      <Form.Item name='quantity' label='Số lượng sản phẩm' rules={[{ required: true }]}>
         <InputNumber min={0} style={{ width: '100%' }} />
       </Form.Item>
       <Form.Item name='typeId' label='Loại sản phẩm' rules={[{ required: true }]}>
