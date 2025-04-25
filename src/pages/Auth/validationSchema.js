@@ -24,4 +24,7 @@ export const registerSchema = Yup.object().shape({
     username: usernameSchema,
     displayName: notJustNumber,
     password: passwordSchema,
+    confirmPassword: Yup.string()
+        .required("Required")
+        .oneOf([Yup.ref("password"), null], "Passwords must match"),
 });

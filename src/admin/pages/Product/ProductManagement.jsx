@@ -72,6 +72,12 @@ const ProductManagement = () => {
             key: 'salePrice', 
             render: text => <span style={{ color: 'black',fontWeight: '600' }}>{formatPrice(text)}</span> 
         },
+        { 
+            title: 'Số lượng còn lại trong kho', 
+            dataIndex: 'quantity', 
+            key: 'quantity', 
+            render: text => <span style={{ fontWeight: '600', color: '#333' }}>{text}</span> 
+        },
         {
             title: 'Actions',
             key: 'actions',

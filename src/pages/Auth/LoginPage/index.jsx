@@ -11,7 +11,12 @@ import { useNavigate } from 'react-router-dom';
 export const LoginPage = () => {
     const [isSignUp, setIsSignUp] = useState(true);
     const [isSwitch, setIsSwitch] = useState(false);
-    const [formData, setFormData] = useState({ username: '', displayName: '', password: '' });
+    const [formData, setFormData] = useState({
+        username: '',
+        displayName: '',
+        password: '',
+        confirmPassword: '',
+    });
     const isAdmin = localStorage.getItem('role') || '';
 
     const changeForm = (e) => {
@@ -24,26 +29,6 @@ export const LoginPage = () => {
 
     const dispatch = useDispatch();
     const { enqueueSnackbar } = useSnackbar();
-
-    // const handleLoginSubmit = async (values, { setSubmitting }) => {
-    //     try {
-    //         const action = login(values);
-    //         const resultAction = await dispatch(action);
-    //         unwrapResult(resultAction);
-    //         enqueueSnackbar('Login successfully !!!', { variant: 'success' });
-    //         if(isAdmin){
-    //             navigate('/admin')
-    //         }
-    //         navigate('/products')
-    //     } catch (error) {
-    //         const errMessage = error.response?.data?.message || error.message || 'Login failed';
-    //         console.log('Failed to login : ', errMessage);
-    //         enqueueSnackbar(errMessage, { variant: 'error' });
-    //         navigate('/login')
-    //     }
-    //     setSubmitting(false);
-    //     // navigate('/products')
-    // };
 
     const handleLoginSubmit = async (values, { setSubmitting }) => {
         try {
@@ -69,6 +54,23 @@ export const LoginPage = () => {
     };
 
     const handleRegisterSubmit = async (values, { setSubmitting }) => {
+        const handleRegisterSubmit = async (values, { setSubmitting }) => {
+            const { confirmPassword, ...submitValues } = values;
+
+            try {
+                const action = register(submitValues);
+                const resultAction = await dispatch(action);
+                unwrapResult(resultAction);
+                enqueueSnackbar('Registration successfully !!!', { variant: 'success' });
+            } catch (error) {
+                const errMessage =
+                    error.response?.data?.message || error.message || 'Registration failed';
+                console.log('Failed to register : ', errMessage);
+                enqueueSnackbar(errMessage, { variant: 'error' });
+            }
+            setSubmitting(false);
+        };
+
         try {
             const action = register(values);
             const resultAction = await dispatch(action);
@@ -125,7 +127,7 @@ export const LoginPage = () => {
                                     className='form__input displayName'
                                     name='displayName'
                                     type='text'
-                                    placeholder='Email'
+                                    placeholder='Display Name'
                                     onChange={handleChange}
                                     onBlur={handleBlur}
                                 />
@@ -147,6 +149,20 @@ export const LoginPage = () => {
                                     component='div'
                                     className='text-danger'
                                 />
+                                <Field
+                                    className='form__input'
+                                    name='confirmPassword'
+                                    type='password'
+                                    placeholder='Re-type password'
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                />
+                                <ErrorMessage
+                                    name='confirmPassword'
+                                    component='div'
+                                    className='text-danger'
+                                />
+
                                 <button
                                     className='form__button button submit'
                                     type='submit'

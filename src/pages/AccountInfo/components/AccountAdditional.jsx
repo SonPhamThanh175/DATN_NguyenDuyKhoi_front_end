@@ -63,7 +63,7 @@ function AccountAdditional() {
           <div style={{ marginTop: '16px' }}>
             <div><strong>Mã đơn hàng:</strong> {order._id}</div>
             <div>
-              <strong>Trạng thái:</strong>{' '}
+              <strong>Trạng thái giao hàng:</strong>{' '}
               <Tag color={
                 order.shippingStatus === 'pending' ? 'orange' :
                 order.shippingStatus === 'shipping' ? 'blue' :
@@ -79,9 +79,9 @@ function AccountAdditional() {
               </Tag>
             </div>
             <div>
-              <strong>Thanh toán:</strong>{' '}
-              <Tag color={order.paymentStatus === 'paid' ? 'green' : 'volcano'}>
-                {order.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán'}
+              <strong>Trạng thái thanh toán:</strong>{' '}
+              <Tag color={order.paymentStatus === 'paid' ? 'greenvolcano' : 'green'}>
+                {order.paymentStatus === 'paid' ? 'Chưa hoàn thành' : 'Đã hoàn thành'}
               </Tag>
             </div>
             <div>

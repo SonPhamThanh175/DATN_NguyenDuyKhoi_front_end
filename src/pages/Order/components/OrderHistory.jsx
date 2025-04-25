@@ -12,6 +12,8 @@ const OrderHistory = () => {
     const [error, setError] = useState(null);
     const [selectedOrder, setSelectedOrder] = useState(null);
     const [isModalVisible, setIsModalVisible] = useState(false);
+    console.log("selectedOrder",selectedOrder);
+    
 
     useEffect(() => {
         const fetchOrderHistory = async () => {
@@ -52,13 +54,13 @@ const OrderHistory = () => {
             case 'cash':
                 return 'Thanh toán khi nhận hàng';
             default:
-                return 'Phương thức không xác định'; // Giá trị mặc định nếu không khớp
+                return 'Phương thức không xác định';
         }
     };
 
     const renderPaymentStatus = (status) => {
       switch (status) {
-          case 'Pending':
+          case 'pending':
               return 'Chưa thanh toán';
           case 'Success':
               return 'Đã thanh toán';
@@ -135,7 +137,7 @@ const OrderHistory = () => {
                                     </Typography.Link>
                                 </Col>
                             </Row>
-                            <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(order.orderDate), 'dd/MM/yyyy', { locale: vi })}</p>
+                            <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(order.orderDate), 'dd/MM/yyyy HH:mm', { locale: vi })}</p>
                       
                             <p style={{ fontWeight: 'bold' }}>Trạng thái vận chuyển: {renderShippingStatus(order.shippingStatus)}</p>
                         
@@ -156,7 +158,7 @@ const OrderHistory = () => {
                         bordered={false}
                         style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}
                     >
-                        <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(selectedOrder.orderDate), 'dd/MM/yyyy', { locale: vi })}</p>
+                        <p style={{ fontWeight: 'bold' }}>Ngày đặt hàng: {formatDate(new Date(selectedOrder.orderDate), 'dd/MM/yyyy HH:mm', { locale: vi })}</p>
                         <p style={{ fontWeight: 'bold' }}>Trạng thái: {renderStatus(selectedOrder.status)}</p>
                        
                         <div style={{display:'flex', justifyContent:'space-between'}}>
