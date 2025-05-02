@@ -1,184 +1,203 @@
-import {
-    Box,
-    Container,
-    Grid,
-    makeStyles,
-    Paper,
-    useTheme
-} from '@material-ui/core';
-import { unwrapResult } from '@reduxjs/toolkit';
-import { useSnackbar } from 'notistack';
-import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Outlet, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
-import userApi from '../../api/userApi';
-import { logout, update } from '../Auth/userSlice';
-import Account from './components/Account';
-import AccountAdditional from './components/AccountAdditional';
-import AccountMenu from './components/AccountMenu';
+"use client"
+
+import { useEffect, useState } from "react"
+import { Box, Container, Paper, Typography, makeStyles, Breadcrumbs, Link, Divider } from "@material-ui/core"
+import { unwrapResult } from "@reduxjs/toolkit"
+import { useSnackbar } from "notistack"
+import { useDispatch, useSelector } from "react-redux"
+import { Outlet, Route, Routes, useLocation, useNavigate } from "react-router-dom"
+import HomeIcon from "@material-ui/icons/Home"
+import PersonIcon from "@material-ui/icons/Person"
+import NavigateNextIcon from "@material-ui/icons/NavigateNext"
+
+import userApi from "../../api/userApi"
+import { logout, update } from "../Auth/userSlice"
+import Account from "./components/Account"
+import AccountAdditional from "./components/AccountAdditional"
+import AccountMenu from "./components/AccountMenu"
 
 const useStyles = makeStyles((theme) => ({
-    root: {
-        // padding: theme.spacing(3, 0),
-        // backgroundColor: '#f9f9f9',
-        // marginTop: '00px',
+  root: {
+    // backgroundColor: "#f8f9fa",
+    minHeight: "calc(100vh - 64px)",
+    // paddingTop: theme.spacing(3),
+    // paddingBottom: theme.spacing(6),
+    marginTop: 100,
+  },
+  container: {
+    maxWidth: 1200,
+    margin: "0 auto",
+  },
+  pageHeader: {
+    marginBottom: theme.spacing(4),
+  },
+  breadcrumbs: {
+    marginBottom: theme.spacing(2),
+  },
+  pageTitle: {
+    fontSize: 28,
+    fontWeight: 700,
+    color: "#333",
+    fontFamily: "monospace",
+    marginBottom: theme.spacing(1),
+  },
+  pageDescription: {
+    color: theme.palette.text.secondary,
+    maxWidth: 600,
+  },
+  contentWrapper: {
+    backgroundColor: "#fff",
+    borderRadius: theme.spacing(1),
+    boxShadow: "0 2px 12px rgba(0, 0, 0, 0.06)",
+    overflow: "hidden",
+  },
+  menuContainer: {
+    marginBottom: theme.spacing(3),
+  },
+  contentContainer: {
+    padding: theme.spacing(3),
+    [theme.breakpoints.down("xs")]: {
+      padding: theme.spacing(2),
     },
-    container: {
-        padding: theme.spacing(2),
-        backgroundColor: '#fff',
-        borderRadius: theme.spacing(1),
-        boxShadow: '0 4px 10px rgba(0, 0, 0, 0.1)',
-        display: 'flex',
-        flexDirection: 'row',
-        gap: theme.spacing(3),
-        display: 'flex',
-        flexDirection: 'column',
-        paddingBottom: theme.spacing(2),
-        borderBottom: `1px solid ${theme.palette.grey[300]}`,
+  },
+  divider: {
+    margin: theme.spacing(3, 0),
+  },
+  icon: {
+    fontSize: 20,
+    marginRight: theme.spacing(0.5),
+    verticalAlign: "middle",
+  },
+  link: {
+    display: "flex",
+    alignItems: "center",
+    color: theme.palette.text.secondary,
+    textDecoration: "none",
+    "&:hover": {
+      textDecoration: "underline",
+      color: theme.palette.primary.main,
     },
-    title: {
-        justifyContent: 'center',
-        textAlign: 'center',
-        fontSize: '24px',
-        fontWeight: 'bold',
-        marginBottom: theme.spacing(3),
-        // fontFamily: 'Alumni Sans',
-        fontFamily: 'monospace',
-    },
-    profileImage: {
-        display: 'block',
-        margin: '0 auto',
-        borderRadius: '50%',
-        width: '150px',
-        height: '150px',
-        objectFit: 'cover',
-        marginBottom: theme.spacing(3),
-    },
-    wrapper: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: theme.spacing(2),
-    },
-    item: {
-        display: 'flex',
-        flexDirection: 'row',
-        alignItems: 'center',
-        gap: theme.spacing(2),
-    },
-    name: {
-        width: '250px',
-        fontWeight: 'bold',
-        fontFamily: 'monospace',
-    },
-    input: {
-        flex: 1,
-    },
-    button: {
-        // marginTop: theme.spacing(3),
-        justifyContent: 'center',
-        textAlign: 'center',
-        width: '200px',
-    },
-    wrapperButton: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: theme.spacing(1),
-    },
-    paper: {
-        padding: theme.spacing(3),
-        marginBottom: theme.spacing(2),
-        backgroundColor: '#fdfdfd',
-    },
-}));
+  },
+}))
 
 function AccountInfo() {
-    const userId = localStorage.getItem('userId');
-    const [formData, setFormData] = useState({
-        displayName: '',
-        email: '',
-        birthday: '',
-        gender: '',
-        password: '',
-        profileImage: '',
-        contactPhone: '',
-    });
-    const theme = useTheme();
+  const userId = localStorage.getItem("userId")
+  const [formData, setFormData] = useState({
+    displayName: "",
+    email: "",
+    birthday: "",
+    gender: "",
+    password: "",
+    profileImage: "",
+    contactPhone: "",
+  })
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState("")
 
-    const [error, setError] = useState('');
-    const navigate = useNavigate();
-    const classes = useStyles();
-    const dispatch = useDispatch();
-    const { enqueueSnackbar } = useSnackbar();
-    const currentUser = useSelector((state) => state.user);
+  const navigate = useNavigate()
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const { enqueueSnackbar } = useSnackbar()
+  const currentUser = useSelector((state) => state.user)
+  const location = useLocation()
 
-    const location = useLocation();
-    const url = location.pathname;
+  // Fetch user information
+  useEffect(() => {
+    if (!userId) {
+      setError("No user ID found in local storage")
+      setLoading(false)
+      return
+    }
 
-    // Lấy thông tin user
-    useEffect(() => {
-        if (!userId) {
-            setError('No user ID found in local storage');
-            return;
-        }
-        (async () => {
-            try {
-                const userData = await userApi.getInfo(userId);
-                setFormData(userData);
-            } catch (error) {
-                setError('Failed to fetch account info');
-            }
-        })();
-    }, [userId]);
+    const fetchUserData = async () => {
+      try {
+        const userData = await userApi.getInfo(userId)
+        setFormData(userData)
+      } catch (error) {
+        setError("Failed to fetch account info")
+      } finally {
+        setLoading(false)
+      }
+    }
 
-    const handleLogout = () => {
-        const action = logout();
-        dispatch(action);
-        navigate('/');
-    };
+    fetchUserData()
+  }, [userId])
 
-    const handleUpdateUser = async (values, { setSubmitting }) => {
-        try {
-            const action = update({ id: userId, ...values });
-            const resultAction = await dispatch(action);
-            unwrapResult(resultAction);
-            enqueueSnackbar('Update successfully !!!', { variant: 'success' });
-            navigate('/products');
-        } catch (error) {
-            // const errMessage = error.response?.data?.message || error.message || 'Update failed';
-            // enqueueSnackbar("Update user không thành công", { variant: 'error' });
-            enqueueSnackbar('Update successfully !!!', { variant: 'success' });
-        }
-        setSubmitting(false);
-    };
+  const handleLogout = () => {
+    const action = logout()
+    dispatch(action)
+    navigate("/")
+  }
 
-    return (
-        <Box className={classes.root}>
-            <Container style={{ marginTop: '120px', width: '1072px' }}>
-                <Paper
-                    elevation={0}
-                    className={classes.paper}
-                >
-                    <Grid className={classes.container}>
-                        <Box className={classes.productMenu}>
-                            <AccountMenu />
-                        </Box>
-                        <Routes>
-                            <Route
-                                path={url}
-                                element={<Account />}
-                            />
-                            <Route
-                                path={`${url}/additional`}
-                                element={<AccountAdditional />}
-                            />
-                        </Routes>
-                        <Outlet />
-                    </Grid>
-                </Paper>
-            </Container>
+  const handleUpdateUser = async (values, { setSubmitting }) => {
+    try {
+      const action = update({ id: userId, ...values })
+      const resultAction = await dispatch(action)
+      unwrapResult(resultAction)
+      enqueueSnackbar("Cập nhật thông tin thành công!", { variant: "success" })
+    } catch (error) {
+      enqueueSnackbar("Cập nhật thông tin thành công!", { variant: "success" })
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  // Determine which section is active for breadcrumbs
+  const isAdditional = location.pathname.includes("/additional")
+  const activeSectionName = isAdditional ? "Thông tin vận chuyển" : "Thông tin cá nhân"
+
+  return (
+    <Box className={classes.root}>
+      <Container className={classes.container}>
+        {/* Page Header */}
+        <Box className={classes.pageHeader}>
+          <Breadcrumbs
+            separator={<NavigateNextIcon fontSize="small" />}
+            aria-label="breadcrumb"
+            className={classes.breadcrumbs}
+          >
+            <Link href="/" className={classes.link}>
+              <HomeIcon className={classes.icon} />
+              Trang chủ
+            </Link>
+            <Link href="/account" className={classes.link}>
+              <PersonIcon className={classes.icon} />
+              Tài khoản
+            </Link>
+            <Typography color="textPrimary" style={{ display: "flex", alignItems: "center" }}>
+              {activeSectionName}
+            </Typography>
+          </Breadcrumbs>
+
+          {/* <Typography variant="h4" className={classes.pageTitle}>
+            Quản lý tài khoản
+          </Typography>
+          <Typography variant="body1" className={classes.pageDescription}>
+            Quản lý thông tin cá nhân và thông tin vận chuyển của bạn
+          </Typography> */}
         </Box>
-    );
+
+        {/* Main Content */}
+        <div elevation={0} className={classes.contentWrapper}>
+          {/* Navigation Menu */}
+          <Box className={classes.menuContainer}>
+            <AccountMenu />
+          </Box>
+
+          <Divider />
+
+          {/* Content Area */}
+          <Box className={classes.contentContainer}>
+            {/* <Routes>
+              <Route path="/" element={<Account />} />
+              <Route path="/additional" element={<AccountAdditional />} />
+            </Routes> */}
+            <Outlet />
+          </Box>
+        </div>
+      </Container>
+    </Box>
+  )
 }
 
-export default AccountInfo;
+export default AccountInfo
