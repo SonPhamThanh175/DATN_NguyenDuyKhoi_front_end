@@ -5,6 +5,7 @@ const cartSlice = createSlice({
     initialState: {
         showMiniCart: false,
         cartItems: JSON.parse(localStorage.getItem("cart")) || [],
+        cartChanged: false,
     },
 
     reducers: {
@@ -53,7 +54,12 @@ const cartSlice = createSlice({
                 (x) =>  x.size !== size || x.color !== color
             );
             localStorage.setItem("cart", JSON.stringify(state.cartItems));
+            state.cartChanged = true;
         },
+        setCartChanged(state, action) {
+            state.cartChanged = action.payload;
+        }
+        
     },
 });
 // Redux tự định nghĩa actions và reducer 
@@ -65,6 +71,7 @@ export const {  showMiniCart ,
                 setQuantity , 
                 removeFromCart ,
                 removeItem ,
+                setCartChanged
                 } = actions
 
 export default reducer

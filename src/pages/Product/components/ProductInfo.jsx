@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { enqueueSnackbar } from 'notistack';
-import { addToCart } from '../../Cart/cartSlice';
+import { addToCart, setCartChanged } from '../../Cart/cartSlice';
 
 import cartsApi from '../../../api/cartApi';
 import orderApi from '../../../api/ordersApi';
@@ -417,6 +417,7 @@ function ProductInfo({ product = {} }) {
                     color: selectedColor,
                 }),
             );
+            dispatch(setCartChanged(true))
             enqueueSnackbar('Đã thêm vào giỏ hàng', { variant: 'success' });
         } catch (error) {
             console.error('Add to cart failed:', error);

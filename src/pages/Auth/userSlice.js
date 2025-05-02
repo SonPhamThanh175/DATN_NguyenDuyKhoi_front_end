@@ -55,7 +55,7 @@ const userSlice = createSlice({
       localStorage.removeItem('access_token');
       localStorage.removeItem('userId');
       localStorage.removeItem('role');
-      // localStorage.removeItem('cart');
+      localStorage.removeItem('cart');
       state.current = {};
       state.settings = {};
     },

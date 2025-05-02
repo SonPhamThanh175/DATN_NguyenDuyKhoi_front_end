@@ -10,6 +10,7 @@ import { logout } from '../../pages/Auth/userSlice';
 import SearchComponent from '../../pages/Product/components/Search';
 import '../Header/style.scss';
 import { cartItemsCountSelector } from '../../pages/Cart/selectors';
+import { setCartChanged } from '../../pages/Cart/cartSlice';
 
 function Header(props) {
     const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -20,7 +21,9 @@ function Header(props) {
     const dispatch = useDispatch();
     const [cartList, setCartList] = useState([]);
     const [userId, setUserId] = useState();
-    const cartItemsCount = useSelector(cartItemsCountSelector);
+    // const cartItemsCount = useSelector(cartItemsCountSelector);
+    const cartItemsCount = cartList.length
+    const cartChanged = useSelector((state) => state.cart.cartChanged);
 
     useEffect(() => {
         const userId = localStorage.getItem('userId');
@@ -34,6 +37,20 @@ function Header(props) {
         }
     }, []);
 
+    // useEffect(() => {
+    //     if (!userId) {
+    //         return;
+    //     }
+    //     (async () => {
+    //         try {
+    //             const cartList = await cartsApi.getAll(userId);
+    //             console.log('cartList', cartList);
+    //             setCartList(cartList);
+    //         } catch (error) {
+    //             console.log('Failed to fetch carts list', error);
+    //         }
+    //     })();
+    // }, [userId]);
     useEffect(() => {
         if (!userId) {
             return;
@@ -41,12 +58,16 @@ function Header(props) {
         (async () => {
             try {
                 const cartList = await cartsApi.getAll(userId);
+                console.log('cartList', cartList);
                 setCartList(cartList);
+                dispatch(setCartChanged(false));
+
             } catch (error) {
                 console.log('Failed to fetch carts list', error);
             }
         })();
-    }, [userId]);
+    }, [userId, cartChanged]); 
+    
 
     const handleSearchClick = () => {
         setIsDropdownOpen(!isDropdownOpen);
