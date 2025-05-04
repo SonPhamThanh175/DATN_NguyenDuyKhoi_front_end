@@ -20,6 +20,7 @@ import AdidasSection from '../components/AdidasSection';
 import AdizeroArukuVideo from '../../../components/AdizeroArukuVideo';
 import SloganSimple from '../../../components/SloganSimple';
 import MembershipBanner from '../../../components/MembershipBanner';
+import Banner from '../../../components/Banner';
 
 function ListPage(props) {
     const [productList, setProductList] = useState([]);
@@ -161,6 +162,7 @@ function ListPage(props) {
             </div>
             <MembershipBanner />
             <AdidasSection />
+            <Banner/>
         </div>
     );
 }
