@@ -143,14 +143,14 @@ const ProductForm = ({ product, onClose, accessToken }) => {
                 rules={[{ required: true }]}
             >
                 <Select style={{ width: '100%' }}>
-                    <Option value='66968db78675a1be4a653de4'>Kashmir</Option>
-                    <Option value='6696a0da8675a1be4a653e1f'>Weimar</Option>
-                    <Option value='6696a2ce8675a1be4a653e24'>Colosseum</Option>
-                    <Option value='6696a5e18675a1be4a653e27'>Jackson</Option>
-                    <Option value='6696a6258675a1be4a653e29'>Detroit</Option>
-                    <Option value='6696a62e8675a1be4a653e2b'>Futura</Option>
-                    <Option value='6696a63f8675a1be4a653e2d'>Whitesands</Option>
-                    <Option value='6696a64e8675a1be4a653e2f'>G-Forks</Option>
+                    <Option value='6696a5e18675a1be4a653e27'>Originals</Option>
+                    <Option value='6696a0da8675a1be4a653e1f'>Bóng đá</Option>
+                    <Option value='6696a2ce8675a1be4a653e24'>Chạy bộ</Option>
+                    <Option value='6696a6258675a1be4a653e29'>Tập</Option>
+                    <Option value='6696a62e8675a1be4a653e2b'>Bóng rổ</Option>
+                    <Option value='6696a63f8675a1be4a653e2d'>Sports Wear</Option>
+                    <Option value='6696a64e8675a1be4a653e2f'>Sneaker đen</Option>
+                    <Option value='66968db78675a1be4a653de4'>Đánh gôn</Option>
                     {/* Add more options as needed */}
                 </Select>
             </Form.Item>
