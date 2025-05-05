@@ -4,15 +4,22 @@ import FilterByCategory from './Filters/FilterByCategory';
 import MenuItemLeft from '../components/Menu';
 
 function ProductFilter({ filters, onChange }) {
-    const handleCategoryChange = (newCategoryGender) => {
+    const handleCategoryChange = ({ field, id }) => {
         if (!onChange) return;
-        const newFilters = {
-          ...filters,
-          typeId: newCategoryGender[1] || filters.typeId,
-        };
+
+        const newFilters = { ...filters };
+
+        if (field === 'categoryId') {
+            // Nếu chọn category mới -> reset luôn typeId
+            newFilters.categoryId = id;
+            newFilters.typeId = undefined; // hoặc null
+        } else if (field === 'typeId') {
+            // Nếu chọn type -> chỉ set typeId
+            newFilters.typeId = id;
+        }
+
         onChange(newFilters);
-      };
-      
+    };
 
     return (
         <div>

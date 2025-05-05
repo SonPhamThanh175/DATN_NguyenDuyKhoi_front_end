@@ -58,19 +58,21 @@ function AccountAdditional() {
             try {
                 const response = await orderApi.getOrderHistory(userId);
                 console.log('response:', response);
-
-                setOrders(response || []);
+    
+                const sortedOrders = (response || []).sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+                setOrders(sortedOrders);
             } catch (error) {
                 console.error('Lỗi khi lấy đơn hàng:', error);
             } finally {
                 setLoading(false);
             }
         };
-
+    
         if (userId) {
             fetchOrders();
         }
     }, [userId]);
+    
 
     const getTimelineItems = (shippingStatus) => {
         const steps = [

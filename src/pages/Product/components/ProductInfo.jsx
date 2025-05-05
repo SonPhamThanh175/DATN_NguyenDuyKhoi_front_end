@@ -443,22 +443,32 @@ function ProductInfo({ product = {} }) {
     const payloadPay = { userId, products, shippingInfo };
 
     // Xử lý mua ngay
-    const handleBuyNow = async () => {
-        if (!userId) {
-            setOpenModal(true);
-            return;
-        }
+// Xử lý mua ngay
+const handleBuyNow = async () => {
+    if (!userId) {
+        setOpenModal(true);
+        return;
+    }
 
-        setIsLoading(true);
-        try {
-            const req = await orderApi.add(payloadPay);
-            navigate(`/orders?id=${req.orderExist._id}`);
-        } catch (error) {
-            enqueueSnackbar('Đã xảy ra lỗi! Vui lòng thử lại sau.', { variant: 'error' });
-        } finally {
-            setIsLoading(false);
+    // Check if shipping info is complete
+    if (!shippingInfo.receiver || !shippingInfo.phone || !shippingInfo.address || !shippingInfo.addressDetail) {
+        // Show alert
+        if (window.confirm('Thông tin giao hàng chưa đầy đủ. Nhấn OK để cập nhật thông tin.')) {
+            navigate('/account');
         }
-    };
+        return;
+    }
+
+    setIsLoading(true);
+    try {
+        const req = await orderApi.add(payloadPay);
+        navigate(`/orders?id=${req.orderExist._id}`);
+    } catch (error) {
+        enqueueSnackbar('Đã xảy ra lỗi! Vui lòng thử lại sau.', { variant: 'error' });
+    } finally {
+        setIsLoading(false);
+    }
+};
 
     // Đóng / mở modal
     const handleCloseModal = () => {

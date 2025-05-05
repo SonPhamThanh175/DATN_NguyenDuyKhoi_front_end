@@ -17,14 +17,23 @@ function MenuItemLeft({ onChange }) {
     })();
   }, []);
 
+  // const handleOnClick = (e) => {
+  //   const str = e.key;
+  //   const result = str.split(' ');
+  //   if (onChange) {
+  //     const [typeId] = result.slice(-1);
+  //     onChange([result[0], typeId]);
+  //   }
+  // };
   const handleOnClick = (e) => {
     const str = e.key;
-    const result = str.split(' ');
+    const [field, id] = str.split(' '); // field = 'categoryId' hoặc 'typeId'
+  
     if (onChange) {
-      const [typeId] = result.slice(-1);
-      onChange([result[0], typeId]);
+      onChange({ field, id });
     }
   };
+  
 
   const menuItem = data.map((menu) => {
     if (!menu._id || !menu.categories) return null; 
