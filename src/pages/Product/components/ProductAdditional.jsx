@@ -34,11 +34,9 @@ function ProductAdditional(props) {
   ];
 
   const dataSource = [
-    { key: 'Size', value: data.size },
-    { key: 'Màu ', value: data.Color },
-    { key: 'Kiểu dáng', value: "Origin" },
-    // { key: 'Độ dày', value: data.thickness },
-    // { key: 'Chống nước', value: data.waterResistance },
+    { key: 'Size', value: Array.isArray(data.size) ? data.size.join(', ') : data.size },
+    { key: 'Màu', value: data.Color },
+    { key: 'Kiểu dáng', value: 'Origin' },
   ];
 
   return (

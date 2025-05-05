@@ -21,12 +21,15 @@ import {
   Container,
   useMediaQuery,
   useTheme,
+  Chip,
 } from "@material-ui/core"
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline"
 import AddIcon from "@mui/icons-material/Add"
 import RemoveIcon from "@mui/icons-material/Remove"
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart"
 import LocalShippingIcon from "@mui/icons-material/LocalShipping"
+import StraightenIcon from "@mui/icons-material/Straighten"
+import ColorLensIcon from "@mui/icons-material/ColorLens"
 
 // Local imports
 import { formatPrice } from "../../../src/utils/common"
@@ -38,6 +41,7 @@ import { removeFromCart, setCartChanged } from "./cartSlice"
 import CartClear from "./components/CartClear"
 import { cartItemsCountSelector, cartTotalSelector } from "./selectors"
 
+// Add a new style for required field indicators
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: theme.spacing(4, 0),
@@ -130,6 +134,22 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: 600,
     color: "#000",
   },
+  productAttributes: {
+    display: "flex",
+    flexWrap: "wrap",
+    gap: theme.spacing(1),
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+  },
+  attributeChip: {
+    height: 24,
+    fontSize: "0.75rem",
+    backgroundColor: "#f0f0f0",
+    "& .MuiChip-icon": {
+      fontSize: "0.875rem",
+      marginLeft: 4,
+    },
+  },
   quantityControl: {
     display: "flex",
     alignItems: "center",
@@ -215,6 +235,17 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     padding: theme.spacing(6, 2),
   },
+  requiredIndicator: {
+    color: theme.palette.error.main,
+    marginLeft: theme.spacing(0.5),
+  },
+  formValidationError: {
+    color: theme.palette.error.main,
+    fontSize: "0.875rem",
+    marginTop: theme.spacing(1),
+    marginBottom: theme.spacing(1),
+    textAlign: "center",
+  },
 }))
 
 const validationSchema = Yup.object().shape({
@@ -260,6 +291,8 @@ function CartPages() {
         const [cartList, userData] = await Promise.all([cartsApi.getAll(userId), userApi.getInfo(userId)])
 
         setCartList(cartList)
+        console.log("cartList", cartList)
+
         setFormData(userData)
       } catch (error) {
         console.log("Failed to fetch data", error)
@@ -327,6 +360,7 @@ function CartPages() {
         quantity: selectedProduct.quantity,
         urlImage: selectedProduct.color,
         color: selectedProduct.color,
+        size: selectedProduct.size,
       }
     })
 
@@ -385,10 +419,12 @@ function CartPages() {
                 validationSchema={validationSchema}
                 onSubmit={handleBuyNow}
               >
-                {({ handleChange, handleBlur, errors, touched }) => (
+                {({ handleChange, handleBlur, errors, touched, isValid, dirty, values }) => (
                   <Form>
                     <Box className={classes.formField}>
-                      <Typography className={classes.fieldLabel}>Tên người nhận</Typography>
+                      <Typography className={classes.fieldLabel}>
+                        Tên người nhận <span className={classes.requiredIndicator}>*</span>
+                      </Typography>
                       <Field
                         as={TextField}
                         name="displayName"
@@ -403,7 +439,9 @@ function CartPages() {
                     </Box>
 
                     <Box className={classes.formField}>
-                      <Typography className={classes.fieldLabel}>Địa chỉ (quận, thành phố)</Typography>
+                      <Typography className={classes.fieldLabel}>
+                        Địa chỉ (quận, thành phố) <span className={classes.requiredIndicator}>*</span>
+                      </Typography>
                       <Field
                         as={SearchAddressField}
                         name="address"
@@ -431,7 +469,9 @@ function CartPages() {
                     </Box>
 
                     <Box className={classes.formField}>
-                      <Typography className={classes.fieldLabel}>Số điện thoại</Typography>
+                      <Typography className={classes.fieldLabel}>
+                        Số điện thoại <span className={classes.requiredIndicator}>*</span>
+                      </Typography>
                       <Field
                         as={TextField}
                         name="contactPhone"
@@ -468,12 +508,25 @@ function CartPages() {
                       </Box>
                     )}
 
+                    {/* Form validation message */}
+                    {!isValid && dirty && (
+                      <Typography variant="body2" color="error" className={classes.formValidationError}>
+                        Vui lòng điền đầy đủ thông tin để tiếp tục đặt hàng
+                      </Typography>
+                    )}
+
                     <Button
                       className={classes.orderButton}
                       variant="contained"
                       type="submit"
                       fullWidth
-                      disabled={selectedProducts.length === 0}
+                      disabled={
+                        selectedProducts.length === 0 ||
+                        !isValid ||
+                        !values.displayName ||
+                        !values.address ||
+                        !values.contactPhone
+                      }
                     >
                       Đặt hàng ngay
                     </Button>
@@ -506,6 +559,25 @@ function CartPages() {
 
                     <Box className={classes.cartDetails}>
                       <Typography className={classes.productName}>{cartItem.name}</Typography>
+
+                      <Box className={classes.productAttributes}>
+                        {cartItem.size && (
+                          <Chip
+                            icon={<StraightenIcon />}
+                            label={`Size: ${cartItem.size}`}
+                            size="small"
+                            className={classes.attributeChip}
+                          />
+                        )}
+                        {cartItem.colorName && (
+                          <Chip
+                            icon={<ColorLensIcon />}
+                            label={`Màu: ${cartItem.colorName || "Mặc định"}`}
+                            size="small"
+                            className={classes.attributeChip}
+                          />
+                        )}
+                      </Box>
 
                       <Typography className={classes.productPrice}>
                         {formatPrice(cartItem.product[0].salePrice)}

@@ -19,12 +19,14 @@ const OrderManagement = () => {
     axios
       .get('http://localhost:5000/api/orders')
       .then((response) => {
-        setOrders(response.data);
+        const sortedOrders = response.data.sort((a, b) => new Date(b.orderDate) - new Date(a.orderDate));
+        setOrders(sortedOrders);
       })
       .catch((error) => {
         console.error('There was an error fetching the orders!', error);
       });
   };
+  
 
   const handleOpenModal = (order) => {
     setSelectedOrder(order);

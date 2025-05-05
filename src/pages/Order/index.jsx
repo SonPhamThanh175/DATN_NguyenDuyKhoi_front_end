@@ -134,7 +134,7 @@ const OrderPage = () => {
         }
         try {
             const res = await orderApi.payment(orderId, paymentMethod);
-            console.log("test call zalo pay" ,res);
+            // console.log("test call zalo pay" ,res);
             
             const paymentUrl = res.paymentUrl.paymentInf.order_url;
             // console.log("Link thanh toan :",paymentUrl);
@@ -165,6 +165,8 @@ const OrderPage = () => {
             try {
                 const res = await orderApi.get(orderId);
                 const itemsList = res.products;
+                console.log("itemsList",itemsList);
+                
                 const shippingInfo = res.shippingInfo;
                 setShippingInfo(shippingInfo);
                 setItemsList(itemsList);
@@ -232,6 +234,9 @@ const OrderPage = () => {
                           <Typography>Số lượng</Typography>
                         </Box>
                         <Box sx={{ width: "20%", textAlign: "center" }}>
+                          <Typography>Size</Typography>
+                        </Box>
+                        <Box sx={{ width: "20%", textAlign: "center" }}>
                           <Typography>Thành tiền</Typography>
                         </Box>
                       </Box>
@@ -294,6 +299,17 @@ const OrderPage = () => {
                             }}
                           >
                             <Typography variant="body2">{item.quantity}</Typography>
+                          </Box>
+                          <Box
+                            style={{
+                              display: "flex",
+                              flexDirection: "column",
+                              justifyContent: "center",
+                              alignItems: "center",
+                              width: "20%",
+                            }}
+                          >
+                            <Typography variant="body2">{item.size}</Typography>
                           </Box>
                           <Box
                             style={{

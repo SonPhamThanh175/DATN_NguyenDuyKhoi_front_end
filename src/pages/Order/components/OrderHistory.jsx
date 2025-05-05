@@ -165,7 +165,7 @@ const OrderHistory = () => {
                         <p style={{ fontWeight: 'bold' }}>Trạng thái vận chuyển: {renderShippingStatus(selectedOrder.shippingStatus)}</p>
                         <a href='http://localhost:3000/account/additional'>(Xem chi tiết)</a>
                         </div>
-                        <p style={{ fontWeight: 'bold' }}>Trạng thái thanh toán: {renderPaymentStatus(selectedOrder.paymentStatus)}</p>
+                        {/* <p style={{ fontWeight: 'bold' }}>Trạng thái thanh toán: {renderPaymentStatus(selectedOrder.paymentStatus)}</p> */}
                         {/* <p style={{ fontWeight: 'bold' }}>Phương thức thanh toán: {renderPaymentMethod(selectedOrder.paymentMethod)}</p> */}
                         <p style={{ fontWeight: 'bold' }}>Tổng giá trị: {formatPrice(selectedOrder.totalAmount)}</p>
                         <p style={{ fontWeight: 'bold' }}>Danh sách sản phẩm:</p>
