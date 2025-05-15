@@ -1,0 +1,280 @@
+/* Common Styles for Adidas Components */
+.adidas-products-section {
+    padding: 40px 20px;
+    background-color: #fff;
+    font-family: "Arial", sans-serif;
+  }
+  
+  .adidas-section-title {
+    text-align: center !important;
+    font-weight: 700 !important;
+    font-size: 28px !important;
+    letter-spacing: 1px !important;
+    text-transform: uppercase !important;
+    margin-bottom: 24px !important;
+    font-family: "Arial", sans-serif !important;
+  }
+  
+  .adidas-divider {
+    border-color: #000 !important;
+    margin: 16px 0 32px !important;
+    width: 80px !important;
+    min-width: 80px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    border-width: 2px !important;
+  }
+  
+  /* Loading and Error States */
+  .adidas-loading-container,
+  .adidas-error-container,
+  .adidas-empty-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+    min-height: 300px;
+  }
+  
+  .adidas-loading-text {
+    margin-top: 16px !important;
+    font-weight: 600 !important;
+    letter-spacing: 1px !important;
+  }
+  
+  .adidas-error-text {
+    font-size: 16px !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Product Card Styles */
+  .adidas-product-wrapper,
+  .adidas-carousel-item-wrapper {
+    position: relative;
+    height: 100%;
+  }
+  
+  .adidas-discount-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: #000;
+    color: #fff;
+    font-weight: 700;
+    font-size: 12px;
+    padding: 4px 8px;
+    z-index: 2;
+    border-radius: 2px;
+  }
+  
+  .adidas-product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .adidas-product-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+  }
+  
+  .adidas-product-image-container {
+    height: 220px;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #f7f7f7;
+  }
+  
+  .adidas-product-image {
+    max-height: 220px;
+    object-fit: contain;
+    transition: transform 0.5s ease;
+  }
+  
+  .adidas-product-card:hover .adidas-product-image {
+    transform: scale(1.05);
+  }
+  
+  .adidas-product-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 12px !important;
+  }
+  
+  .adidas-product-title {
+    margin-bottom: 8px !important;
+    font-weight: 600 !important;
+    font-size: 16px !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-align: center !important;
+  }
+  
+  .adidas-product-description {
+    margin-bottom: 12px !important;
+    color: #666 !important;
+    font-size: 14px !important;
+    text-align: center !important;
+  }
+  
+  .adidas-product-price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  
+  .adidas-original-price {
+    font-size: 14px !important;
+    color: #999 !important;
+  }
+  
+  .adidas-sale-price {
+    font-size: 16px !important;
+    color: #000 !important;
+    font-weight: 700 !important;
+  }
+  
+  .adidas-product-color-section,
+  .adidas-product-size-section {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: center;
+    margin-bottom: 12px;
+  }
+  
+  .adidas-color-button,
+  .adidas-size-button {
+    min-width: auto !important;
+    height: 32px !important;
+    padding: 0 12px !important;
+    font-size: 12px !important;
+    border-radius: 0 !important;
+    border: 1px solid #e0e0e0 !important;
+    background-color: #fff !important;
+    color: #000 !important;
+  }
+  
+  .adidas-color-button.active {
+    background-color: #000 !important;
+    color: #fff !important;
+    border-color: #000 !important;
+  }
+  
+  .adidas-size-button.active {
+    border-color: #000 !important;
+    font-weight: 700 !important;
+  }
+  
+  .adidas-product-stock {
+    margin-top: 12px;
+    text-align: center;
+  }
+  
+  .adidas-in-stock {
+    color: #00a046 !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+  
+  .adidas-out-of-stock {
+    color: #e32b2b !important;
+    font-size: 13px !important;
+    font-weight: 600 !important;
+  }
+  
+  /* Carousel Specific Styles */
+  .adidas-carousel-container {
+    position: relative;
+    padding: 0 40px;
+  }
+  
+  .adidas-carousel-content {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+    padding: 10px 0;
+  }
+  
+  .adidas-carousel-content::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+  
+  .adidas-carousel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1;
+    background-color: #fff !important;
+    border-color: #000 !important;
+    border-radius: 50% !important;
+    width: 36px !important;
+    height: 36px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15) !important;
+  }
+  
+  .adidas-carousel-button:hover {
+    background-color: #000 !important;
+    color: #fff !important;
+  }
+  
+  .adidas-carousel-button-left {
+    left: 0;
+  }
+  
+  .adidas-carousel-button-right {
+    right: 0;
+  }
+  
+  .adidas-carousel-card {
+    width: 265px;
+    height: 450px;
+    flex: 0 0 auto;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08) !important;
+    transition: all 0.3s ease !important;
+  }
+  
+  .adidas-carousel-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+  }
+  
+  .adidas-carousel-image-container {
+    height: 200px;
+    overflow: hidden;
+    background-color: #f7f7f7;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .adidas-carousel-image {
+    height: 200px;
+    object-fit: contain;
+    width: 100%;
+    transition: transform 0.5s ease;
+  }
+  
+  .adidas-carousel-card:hover .adidas-carousel-image {
+    transform: scale(1.05);
+  }
+  

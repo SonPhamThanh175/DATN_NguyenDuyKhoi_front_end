@@ -5,11 +5,12 @@ import { useNavigate } from "react-router-dom"
 
 const { Title, Text } = Typography
 
-const SuggestedProducts = ({ productId }) => {
+const RecommendedProducts = () => {
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
   const containerRef = useRef(null)
+  const userId = localStorage.getItem("userId")
   const navigate = useNavigate()
 
   const handleCardClick = (productId) => {
@@ -17,13 +18,13 @@ const SuggestedProducts = ({ productId }) => {
   }
 
   useEffect(() => {
-    const fetchSuggestedProducts = async () => {
+    const fetchRecommendedProducts = async () => {
       try {
         setLoading(true)
-        const response = await fetch(`http://localhost:5000/api/products/recommend/${productId}`)
+        const response = await fetch(`http://localhost:5000/api/recommendations/${userId}`)
 
         if (!response.ok) {
-          throw new Error("Failed to fetch suggested products")
+          throw new Error("Failed to fetch recommended products")
         }
 
         const data = await response.json()
@@ -35,8 +36,8 @@ const SuggestedProducts = ({ productId }) => {
       }
     }
 
-    fetchSuggestedProducts()
-  }, [productId])
+    fetchRecommendedProducts()
+  }, [])
 
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", { style: "currency", currency: "VND" }).format(price)
@@ -92,7 +93,7 @@ const SuggestedProducts = ({ productId }) => {
   return (
     <div className="adidas-products-section" style={{ position: "relative", margin: "20px 0" }}>
       <Title level={2} className="adidas-section-title" style={{ textAlign: "center", marginBottom: "16px" }}>
-        CÓ THỂ BẠN CŨNG THÍCH
+        NHỮNG NGƯỜI KHÁC CŨNG ĐÃ MUA
       </Title>
       <Divider className="adidas-divider" style={{ margin: "16px 0 24px" }} />
 
@@ -133,7 +134,7 @@ const SuggestedProducts = ({ productId }) => {
         >
           {products.map((product) => (
             <div
-              key={product._id || product.productId}
+              key={product._id}
               style={{
                 flex: "0 0 280px",
                 maxWidth: "280px",
@@ -141,28 +142,26 @@ const SuggestedProducts = ({ productId }) => {
               }}
             >
               <Badge.Ribbon
-                text={`${Math.round((1 - (product.salePrice || product.originalPrice) / product.originalPrice) * 100)}% GIẢM`}
+                text={`${Math.round((1 - product.salePrice / product.originalPrice) * 100)}% GIẢM`}
                 color="black"
-                style={{
-                  display: (product.salePrice || product.originalPrice) < product.originalPrice ? "block" : "none",
-                }}
+                style={{ display: product.salePrice < product.originalPrice ? "block" : "none" }}
               >
                 <Card
                   hoverable
                   className="adidas-product-card"
                   style={{ width: "100%", height: "100%" }}
-                  onClick={() => handleCardClick(product._id || product.productId)}
+                  onClick={() => handleCardClick(product._id)}
                   cover={
                     <div style={{ height: "200px", overflow: "hidden" }}>
                       <Image
-                        src={product.images?.[0] || "https://placeholder.pics/svg/300x300/DEDEDE/555555/Hình%20ảnh"}
+                        src={product.images[0] || "https://placeholder.pics/svg/300x300/DEDEDE/555555/Hình%20ảnh"}
                         alt={product.name}
                         style={{ width: "100%", height: "100%", objectFit: "cover" }}
                         fallback="https://placeholder.pics/svg/300x300/DEDEDE/555555/Hình%20ảnh"
                         preview={{
                           visible: false,
                           images:
-                            product.images?.filter((img) => img).length > 0
+                            product.images.filter((img) => img).length > 0
                               ? product.images.filter((img) => img)
                               : ["https://placeholder.pics/svg/300x300/DEDEDE/555555/Hình%20ảnh"],
                         }}
@@ -199,46 +198,46 @@ const SuggestedProducts = ({ productId }) => {
 
                     <div style={{ marginBottom: "8px" }}>
                       <Text
-                        delete={(product.salePrice || product.originalPrice) < product.originalPrice}
+                        delete={product.salePrice < product.originalPrice}
                         type="secondary"
                         style={{ marginRight: "8px", fontSize: "14px" }}
                       >
                         {formatPrice(product.originalPrice)}
                       </Text>
-                      {(product.salePrice || product.originalPrice) < product.originalPrice && (
+                      {product.salePrice < product.originalPrice && (
                         <Text type="danger" strong style={{ fontSize: "16px" }}>
-                          {formatPrice(product.salePrice || product.originalPrice)}
+                          {formatPrice(product.salePrice)}
                         </Text>
                       )}
                     </div>
 
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", marginBottom: "8px" }}>
-                      {Array.isArray(product.Color || product.color) ? (
-                        (product.Color || product.color).map((color, index) => (
+                      {Array.isArray(product.Color) ? (
+                        product.Color.map((color, index) => (
                           <Tag key={index} style={{ margin: "0" }}>
                             {color}
                           </Tag>
                         ))
                       ) : (
-                        <Tag style={{ margin: "0" }}>{product.Color || product.color || "BLACK"}</Tag>
+                        <Tag style={{ margin: "0" }}>{product.Color}</Tag>
                       )}
                     </div>
 
                     <div style={{ display: "flex", flexWrap: "wrap", gap: "4px", marginBottom: "8px" }}>
-                      {Array.isArray(product.size || product.sizes) ? (
-                        (product.size || product.sizes).map((size, index) => (
+                      {Array.isArray(product.size) ? (
+                        product.size.map((size, index) => (
                           <Tag key={index} style={{ margin: "0" }}>
                             {size}
                           </Tag>
                         ))
                       ) : (
-                        <Tag style={{ margin: "0" }}>{product.size || product.sizes || "40"}</Tag>
+                        <Tag style={{ margin: "0" }}>{product.size}</Tag>
                       )}
                     </div>
 
                     <div>
-                      <Text type={(product.quantity || 0) > 0 ? "success" : "danger"} style={{ fontSize: "14px" }}>
-                        {(product.quantity || 0) > 0 ? `Còn hàng: ${product.quantity || 998}` : "Hết hàng"}
+                      <Text type={product.quantity > 0 ? "success" : "danger"} style={{ fontSize: "14px" }}>
+                        {product.quantity > 0 ? `Còn hàng: ${product.quantity}` : "Hết hàng"}
                       </Text>
                     </div>
                   </div>
@@ -273,4 +272,4 @@ const SuggestedProducts = ({ productId }) => {
   )
 }
 
-export default SuggestedProducts
+export default RecommendedProducts

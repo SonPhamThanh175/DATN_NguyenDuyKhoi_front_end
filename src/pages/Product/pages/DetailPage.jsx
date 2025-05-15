@@ -11,6 +11,7 @@ import ProductReviews from '../components/ProductReviews';
 import ProductThumnail from '../components/ProductThumnail';
 import useProductDetail from '../hooks/useProductDetail';
 import SuggestedProducts from '../components/SuggestedProducts';
+import RecommendedProducts from '../components/RecommendedProducts/RecommendedProducts';
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -124,7 +125,9 @@ function DetailPage() {
 
                 <Box className={classes.paper}>
                     <SuggestedProducts productId={productId}/>
-
+                </Box>
+                <Box className={classes.paper}>
+                    <RecommendedProducts/>
                 </Box>
                 <Box className={classes.productMenu}>
                     <ProductMenu />

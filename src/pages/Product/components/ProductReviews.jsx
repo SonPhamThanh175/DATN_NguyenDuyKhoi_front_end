@@ -13,6 +13,7 @@ function ProductReviews({ onSubmitReview }) {
     const { productId } = useParams();
     const [reviews, setReviews] = useState([]);
     const [authors, setAuthors] = useState({}); 
+    const userId = localStorage.getItem('userId'); 
     
     useEffect(() => {
         const fetchReviews = async () => {
@@ -47,6 +48,8 @@ function ProductReviews({ onSubmitReview }) {
         const newReview = {
             rate: rating,
             comment: values.comment,
+            userId,
+            productId,
             // author: 'User', // Thay thế bằng thông tin người dùng thực tế nếu có
             // date: new Date().toLocaleDateString(),
         };

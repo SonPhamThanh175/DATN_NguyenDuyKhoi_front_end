@@ -442,7 +442,6 @@ function ProductInfo({ product = {} }) {
     ];
     const payloadPay = { userId, products, shippingInfo };
 
-    // Xử lý mua ngay
 // Xử lý mua ngay
 const handleBuyNow = async () => {
     if (!userId) {
