@@ -1,61 +1,155 @@
-// SearchComponent.scss
 .search-component-container {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin-top: 50px;
+    justify-content: center;
+    // min-height: 100vh;
+    width: 100%;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
 .search-component-input {
     width: 500px;
+    max-width: 90vw; // Responsive cho màn hình nhỏ
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
     font-size: 16px;
     margin-bottom: 20px;
-}
+    outline: none;
+    transition: border-color 0.3s ease;
 
-.search-component-button {
-    padding: 10px 20px;
-    background-color: #000;
-    color: #fff;
-    border: none;
-    border-radius: 0px;
-    font-size: 16px;
-    cursor: pointer;
-    margin-bottom: 20px;
-}
+    &:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+    }
 
-.search-component-button:hover {
-    background-color: #444;
+    &::placeholder {
+        color: #999;
+    }
 }
 
 .search-component-results {
+    justify-content: center !important;
     list-style-type: none;
     padding: 0;
     max-height: 200px;
     overflow-y: auto;
-    width: 800px; // Đảm bảo chiều rộng của danh sách khớp với input
+    width: 100% !important;
+    max-width: 90vw; // Responsive cho màn hình nhỏ
     border: 1px solid #ccc;
     border-radius: 4px;
-    margin-top: 20px; // Khoảng cách giữa nút và danh sách
+    margin-top: 20px;
     margin-bottom: 20px;
-
+    background: white;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    margin: 4px 0 0 0;
+    list-style: none;
 }
 
 .search-component-item {
     display: flex;
+    align-items: flex-start;
     align-items: center;
-    margin: 10px 0;
+    padding: 12px 16px;
     padding: 5px 10px;
     cursor: pointer;
-    justify-content: space-between
+    border-bottom: 1px solid #f0f0f0;
+    transition: background-color 0.2s ease;
+    gap: 12px;
+    margin: 10px 0;
+    justify-content: space-between;
+
+    &:hover {
+        background-color: #f8f9fa;
+    }
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    img {
+        flex-shrink: 0;
+        border: 1px solid #e0e0e0;
+        margin-right: 10px;
+    }
+
+    .product-info {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    div {
+        margin-right: 20px;
+    }
 }
 
-.search-component-item img {
-    margin-right: 10px;
+.search-component-no-results {
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 20px;
+    text-align: center;
+    color: #666;
+    width: 800px;
+    max-width: 90vw; // Responsive cho màn hình nhỏ
+    margin-top: 20px;
+    margin-bottom: 20px;
+    position: static;
 }
 
-.search-component-item div {
-    margin-right: 20px;
+.search-component-button {
+    width: 50%;
+    padding: 12px 16px;
+    padding: 10px 20px;
+    background-color: #007bff;
+    background-color: #000;
+    color: white;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    border-radius: 0px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 8px;
+    margin-bottom: 20px;
+
+    &:hover {
+        background-color: #0056b3;
+        background-color: #444;
+    }
+
+    &:active {
+        transform: translateY(1px);
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .search-component-container {
+        max-width: 100%;
+    }
+
+    .search-component-item {
+        padding: 10px 12px;
+        gap: 10px;
+
+        img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .product-info {
+            font-size: 14px;
+        }
+    }
 }

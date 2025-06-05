@@ -11,6 +11,7 @@ import cartsApi from '../../../api/cartApi';
 import orderApi from '../../../api/ordersApi';
 import userApi from '../../../api/userApi';
 import { discountPercentage, formatPrice } from '../../../utils/common';
+import axios from 'axios';
 
 // SVG Icons
 const ChevronRightIcon = () => (
@@ -337,6 +338,20 @@ function ProductInfo({ product = {} }) {
     const category = product.category || 'Running';
     const colorOptions = product.colorOptions || images;
     const reviewCount = product.reviewCount || 277;
+
+    useEffect(() => {
+        // const resReviews = axios.get(`http://localhost:5000/api/reviews/product/${product._id}`)
+        // console.log("resReviews", resReviews);
+        const fetchReviews = async () => {
+            try {
+                const res = await axios.get(`http://localhost:5000/api/reviews/product/${product._id}`);
+                console.log('REviews:', res.data);
+                debugger
+            } catch (error) {
+                console.error('Error fetching reviews:', error);
+            }
+        }
+    }, []);
 
     const userId = localStorage.getItem('userId');
     const promotionPercent = discountPercentage(originalPrice, salePrice);

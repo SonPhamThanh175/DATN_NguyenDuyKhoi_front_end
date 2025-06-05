@@ -326,14 +326,33 @@ function CartPages() {
     }
   }
 
+  const updateSelectedProducts = (id, newQuantity) => {
+    setSelectedProducts(selectedProducts.map((item) => (item._id === id ? { ...item, quantity: newQuantity } : item)))
+  }
+
   const handleIncreaseQuantity = (id) => {
-    setCartList(cartList.map((item) => (item._id === id ? { ...item, quantity: item.quantity + 1 } : item)))
+    const newQuantity = cartList.find((item) => item._id === id).quantity + 1
+
+    setCartList(cartList.map((item) => (item._id === id ? { ...item, quantity: newQuantity } : item)))
+
+    // Cập nhật selectedProducts nếu sản phẩm đã được chọn
+    if (selectedProducts.some((item) => item._id === id)) {
+      updateSelectedProducts(id, newQuantity)
+    }
   }
 
   const handleDecreaseQuantity = (id) => {
-    setCartList(
-      cartList.map((item) => (item._id === id && item.quantity > 1 ? { ...item, quantity: item.quantity - 1 } : item)),
-    )
+    const currentItem = cartList.find((item) => item._id === id)
+    if (currentItem.quantity <= 1) return
+
+    const newQuantity = currentItem.quantity - 1
+
+    setCartList(cartList.map((item) => (item._id === id ? { ...item, quantity: newQuantity } : item)))
+
+    // Cập nhật selectedProducts nếu sản phẩm đã được chọn
+    if (selectedProducts.some((item) => item._id === id)) {
+      updateSelectedProducts(id, newQuantity)
+    }
   }
 
   const handleCheckboxChange = (product) => {
@@ -381,7 +400,7 @@ function CartPages() {
       const req = await orderApi.add(payloadPay)
       navigate(`/orders?id=${req.orderExist._id}`)
     } catch (error) {
-      enqueueSnackbar("Đã xảy ra lỗi! Vui lòng thử lại sau.", {
+      enqueueSnackbar(error, {
         variant: "error",
       })
     }
