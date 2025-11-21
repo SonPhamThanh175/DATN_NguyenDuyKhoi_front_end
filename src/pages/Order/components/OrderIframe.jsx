@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 const OrderIframe = ({ isVisible, handleClose, url, orderId }) => {
-    console.log(url);
+    console.log("url",url);
 
     const navigate = useNavigate();
     const checkOrderStatus = async () => {

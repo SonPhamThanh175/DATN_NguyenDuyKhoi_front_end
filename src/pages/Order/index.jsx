@@ -134,7 +134,7 @@ const OrderPage = () => {
         }
         try {
             const res = await orderApi.payment(orderId, paymentMethod);
-            // console.log("test call zalo pay" ,res);
+            console.log("test call zalo pay" ,res);
             
             const paymentUrl = res.paymentUrl.paymentInf.order_url;
             // console.log("Link thanh toan :",paymentUrl);
